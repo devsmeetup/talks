@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta charset="utf-8">
+
+		<title>Docker</title>
+
+		<meta name="description" content="Docker">
+		<meta name="author" content="Jonas Reinsch">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="http://spray.io/webinar/css/theme/sirthias.css" id="theme">
+		<link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
+                <link rel="stylesheet" href="./spray_akad_files/pdf.css" type="text/css" media="print">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="http://spray.io/webinar/lib/css/zenburn.css">
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+		<div class="reveal fade center" data-transition-speed="fast" data-background-transition="default">
+			<div class="slides" style="width: 960px; height: 700px; zoom: 1;">
+				<section class="present" style="top: -344px; display: block;">
+<!--          <img style="margin-bottom: 50px;" width="80%" src="./spray_akad_files/spray-logo.svg" alt="spray">
+-->
+
+          <img src="img/8horizontaldarktransparent.png">
+
+          <h3>Docker</h3>
+          <p>Devsmeetup Freiburg 2014-03-26</p>
+          <p>
+            <small>Jonas Reinsch &nbsp;
+              <a href="mailto:jonas.reinsch(at)gmail(dot)com"><i class="fa fa-envelope"></i></a> /
+              <a href="http://twitter.com/jsrnio"><i class="fa fa-twitter-square"></i></a><br><br>
+              feat. Friedel Ziegelmayer &nbsp;
+              <a href="mailto:dignifiedquire(at)gmail(dot)com"><i class="fa fa-envelope"></i></a> /
+              <a href="https://github.com/dignifiedquire"><i class="fa fa-github-square"></i></a> /
+              <a href="http://twitter.com/dignifiedquire"><i class="fa fa-twitter-square"></i></a><br><br>
+              Slides: <a href="http://jsrn.io/dockertalk/">http://jsrn.io/dockertalk/</a><br>
+            </small>
+          </p>
+
+        </section>
+
+        <section hidden="" class="future" style="top: -241px; display: block;">
+          <h2>Was ist Docker?</h2>
+          <ul>
+            <li>Container: isolierter Prozess<br>
+              in 'leichtgewichtiger VM'</li>
+            <li>Dockerfile: beschreibt den Aufbau<br>
+              von Containern</li>
+            <li>Images, Docker Index: verteile Container<br>
+              mache sie 'überall' lauffähig
+            </li>
+          </ul> 
+        </section>
+
+        <section hidden="" class="future" style="top: -199px; display: block;">
+          <h2>Und warum?</h2>
+          <ul>
+            <li class='fragment'>Server mit vielen Applikationen<br>(alle Applikationen Containerizen)</li>
+            <li class='fragment'>Production-Environment zum Testen replizieren<br>(baue Production-Container nach jedem Commit neu, auf Entwicklungsmaschine)</li>
+            <li class='fragment'>Teste gegen verschiedene Versionen derselben Library/Datenbank<br>
+              (jede Version/Versionskombination = 1 Container)
+            </li>
+          </ul> 
+        </section>
+           
+        <section hidden="" class="future" style="top: -199px; display: block;">
+          <h2>Warum aber nicht...</h2>
+          <p>...'normale' Virtualisierung (Xen, Virtualbox)?</p>
+          <p>+ Chef / Puppet / Ansible?</p>
+        </section>
+
+
+
+				<section hidden="" class="future" style="display: none;">
+				  <h2>Container vs VM</h2>
+                                  <img src='img/vm_image.png'>
+                                </section>
+
+                                <section hidden="" class="future" style="display: none;">
+				  <h2>Container vs VM</h2>
+                                  <img src='img/container_image.png'>
+                                </section>
+
+
+				<section hidden="" class="future" style="top: -20px; display: none;">
+				  <h2>Vorteile</h2>
+					<ul class="fragment">
+						<li>sehr geringe Startup-Zeit</li>
+						<li>sehr geringer Speicheroverhead</li>
+						<li>native Geschwindigkeit</li>
+						<li>10-100 Container auf Laptop</li>
+						<li>100-1000 Container auf Server</li>
+					</ul>
+				</section>
+
+                                <section hidden="" class="future" style="display: none;">
+				  <h2>(Demo)</h2>
+                                </section>
+
+                                <section hidden="" class="future" style="display: none;">
+				  <h2>Layering</h2>
+                                  <ul>
+						<li>Layering von Images mit AUFS</li>
+                                                <li>Wenn kein AUFS: Alternative Storage Drivers (VFS, BTRFS, ZFS)</li>
+                                                <li>Images Kompatibel über Storage Drivers hinweg</li>
+                                                <li>Copy on Write / Layering führt zu sehr kompakten Images</li>
+                                                <li>Sharing von gemeinsamen Base Images</li>
+                                  </ul>
+                                </section>
+
+                                <section hidden="" class="future" style="display: none;">
+				  <h2>(Demo)</h2>
+                                </section>
+
+                                <section hidden="" class="future" style="display: none;">
+				  <h2>Docker Index</h2>
+                                  <ul>
+                                      <li>Repository von Images</li>
+                                      <li>Lassen sich mittels <code>docker pull</code> herunterladen</li>
+                                      <li>Bzw. als Base Image in Dockerfile verwenden</li>
+                                      <li>'Trusted Images'</li>
+                                      <li>Bsp: <a href='https://index.docker.io/u/paintedfox/postgresql/'>paintedfox/postgresql</a></li>
+                                  </ul>
+                                </section>
+
+                                <section hidden="" class="future" style="display: none;">
+				  <h2>Docker Entwicklung</h2>
+                                  <ul>
+						<li>2011: Gründung dotCloud (PaaS)</li>
+						<li>2011: YCombinator, 800K $ Angel Funding</li>
+						<li>2011: 10M $ Series A VC</li>
+						<li>Kommodifizierung von PaaS</li>
+						<li>Dagegen kämpfen?</li>
+						<li>2013 (März): Docker veröffentlicht</li>
+						<li>2013 (Oktober): Name von dotCloud in Docker Inc. geändert</li>
+						<li>2014 (Januar): <a href='http://blog.docker.io/2014/01/docker-closes-15-m-series-b-funding/'>15M $ Series B VC</a></li>
+<li>In Go geschrieben</li>
+</ul>
+
+                                </section>
+
+                                <section hidden="" class="future" style="display: none;">
+				  <h2>(Die Container-Analogie)</h2>
+                                </section>
+
+                                <section hidden="" class="future" style="display: none;">
+				  <h2>Beschränkungen</h2>
+
+
+
+                                <ul>
+                                    <li>Orchestrierung</li>
+                                    <li>Linking von Containern: sehr beschränkt</li>
+                                    <li>Umgebung: Kein init-Prozess, kein cron daemon usw.</li>
+                                    <li><a href='http://phusion.github.io/baseimage-docker/'>baseimage-docker</a></li>
+                                </ul>
+
+                                </section>
+				<section hidden="" class="future" style="top: -20px; display: none;">
+				  <h2>boot2docker (Docker on the Mac)</h2>
+
+				  <pre><code data-trim="">$ brew update
+$ brew install boot2docker
+$ boot2docker init
+
+# VM hochfahren (Daemon läuft nativ in TinyCoreLinux-Variante)
+$ boot2docker up 
+
+# Docker CLI nativ auf dem Mac
+$ docker run ubuntu echo hello world
+hello world
+
+# Man kann auch per ssh auf die Linux VM
+$ boot2docker ssh # (PW tcuser)
+</code></pre>
+				</section>
+
+
+				<section hidden="" class="future" style="top: -20px; display: none;">
+				  <h2>Learning (auch über Docker hinaus)</h2>
+				  <ul>
+                                  <li>'Funktional': Mache Container immutable</li>
+                                  <li>Daten außerhalb, als Volume gemounted</li>
+                                  <li>Container kann jederzeit abgerissen und durch neuen ersetzt werden</li>
+                                  <li>Führt auch zu mehr Disziplin - alles muss ins Dockerfile!</li>
+                                  <li>Neubauen vs. Idempotente Operatoren</li>
+                                  </ul>
+				</section>
+
+
+	</section>
+        <section hidden="" class="future" style="top: -199px; display: block;">
+          <h2>Use Case: Codio</h2>
+          <img style="margin-bottom: 50px;" width="80%" src="./img/codio.svg" alt="Codio">
+        </section>
+        <section hidden="" class="future" style="top: -199px; display: block;">
+          <h2>Architecture</h2>
+          <img style="margin-bottom: 50px;" width="80%" src="./img/codio_architecture.svg" alt="Codio">
+        </section>
+
+        <section hidden="" class="future" style="top: -199px; display: block;">
+          <h2>The Good</h2>
+          <ul>
+            <li class='fragment'>Schnelle Bootzeit</li>
+            <li class='fragment'>Resourcen Effizient</li>
+            <li class='fragment'>Wachsende Community</li>
+          </ul>
+        </section>
+        <section hidden="" class="future" style="top: -199px; display: block;">
+          <h2>The Bad</h2>
+          <ul>
+            <li class='fragment'>Unstable</li>
+            <li class='fragment'>Breaking Changes zwischen verschiedenen Versionen</li>
+            <li class='fragment'>Wenig Tools (Monitoring, Sicherheit)</li>
+          </ul>
+        </section>
+
+
+				<section hidden="" class="future" style="top: -262.5px; display: block;">
+				  <h2>Getting started</h2>
+				  <ul>
+						<li>Main sites &amp; documentation:<br>
+							<a href="http://docker.io/">http://docker.io</a>
+            </li>
+						<li>Mailing lists:<br>
+							<a href="https://groups.google.com/forum/#!forum/docker-user">docker-user</a>
+            </li>
+						<li>Twitter: <br>
+							<a href="https://twitter.com/docker">@docker</a></li>
+					</ul>
+				</section>
+
+				<section hidden="" class="future" style="top: -106.5px; display: block;">
+					<h2>Danke!</h2>
+				</section>
+
+				<section hidden="" class="future" style="top: -106.5px; display: block;">
+					<h2>Q &amp; A</h2>
+				</section>
+
+				<section hidden="" class="future" style="top: -106.5px; display: block;">
+					<h2>References</h2>
+				  <ul>
+                                     <li>
+                                        <a href='http://orchardup.github.io/fig/'>Fig</a>: Fast, isolated development environments using Docker. Interessant zum Thema Orchestrierung (z.B. Datenbank + App zusammenpacken, reproduzierbar)
+                                     </li>
+                                     <li>
+                                        <a href='https://github.com/jpetazzo/pipework'>Pipework</a>:
+                                        Wenn man z.B. nachträglich die IP von Docker-Containern ändern muss.
+                                     </li>
+			             <li>
+                                        <a href='https://github.com/progrium/dokku'>Dokku</a>:
+                                        Docker powered mini-Heroku in around 100 lines of Bash
+                                     </li>
+                                     <li>
+                                        <a href='https://flynn.io/'>Flynn</a>:
+                                        Dokku in größer :-) Basiert auch auf Docker.
+                                     </li>
+                                     <li>
+                                       <a href='https://orchardup.com/'>Orchard</a>: Get a Docker host in the cloud, instantly.</a>
+                                     </li>
+                                     <li>
+                                       <a href='https://www.docker.io/learn/dockerfile/'>Dockerfile-Tutorial</a>
+                                     </li>
+                                     <li>
+                                       <a href='https://bitbucket.org/timostolz/docker-nginx'>Nginx-Container</a> von Timo Stolz
+                                     </li>
+                                   </ul>
+
+
+
+				</section>
+
+			</div>
+		<div class="backgrounds"><div class="slide-background present"></div><div class="slide-background future"></div><div class="slide-background future"></div><div class="slide-background future"></div><div class="slide-background future"></div><div class="slide-background future"></div><div class="slide-background future"></div><div class="slide-background future"></div><div class="slide-background future"></div><div class="slide-background future"></div><div class="slide-background future"></div><div class="slide-background future"></div><div class="slide-background future"></div><div class="slide-background future"></div><div class="slide-background future"></div><div class="slide-background future"></div><div class="slide-background future"></div><div class="slide-background future"></div><div class="slide-background future"></div><div class="slide-background future"></div><div class="slide-background future"></div><div class="slide-background future"></div><div class="slide-background future"></div><div class="slide-background future"></div><div class="slide-background future"></div><div class="slide-background future"></div><div class="slide-background future"></div><div class="slide-background future"></div><div class="slide-background future"></div><div class="slide-background future"></div><div class="slide-background future"></div><div class="slide-background future"></div><div class="slide-background future"></div><div class="slide-background future"></div><div class="slide-background future"></div></div><div class="progress" style="display: block;"><span style="width: 0px;"></span></div><aside class="controls" style="display: block;"><div class="navigate-left"></div><div class="navigate-right enabled"></div><div class="navigate-up"></div><div class="navigate-down"></div></aside><div class="state-background"></div><div class="pause-overlay"></div></div>
+
+		<script src="js/head.min.js"></script>
+		<script src="reveal.js/js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				theme: Reveal.getQueryHash().theme || 'sirthias', // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'fade', // default/cube/page/concave/zoom/linear/fade/none
+
+				transitionSpeed: 'fast',
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+				]
+			});
+
+		</script><script type="text/javascript" src="./spray_akad_files/highlight.js"></script>
+
+	
+
+</body></html>
