@@ -1,0 +1,82 @@
+@import url(http://fonts.googleapis.com/css?family=Raleway:700,400,300,200,100);
+
+body {
+	font-family: "Raleway", "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
+	font-weight: 300;
+}
+
+/*****************
+     ANIMATION
+******************/
+.animated {
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+@-webkit-keyframes pulse {
+  0% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+
+  50% {
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+  }
+
+  100% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    -webkit-transform: scale(1);
+    -ms-transform: scale(1);
+    transform: scale(1);
+  }
+
+  50% {
+    -webkit-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    transform: scale(1.1);
+  }
+
+  100% {
+    -webkit-transform: scale(1);
+    -ms-transform: scale(1);
+    transform: scale(1);
+  }
+}
+
+.pulse {
+  -webkit-animation-name: pulse;
+  animation-name: pulse;
+}
+
+/*****************
+      REVEAL
+******************/
+.reveal {
+	font-size: 42px;
+}
+
+.reveal small {
+	margin-top: 20px;
+	color: #888;
+	font-weight: 200;
+}
+
+.reveal a:hover,
+.reveal a:visited,
+.reveal a {
+	color: #2dbbd3;
+	text-decoration: none;
+}
+
+.reveal h1 {
+	color: #2dbbd3;
+}

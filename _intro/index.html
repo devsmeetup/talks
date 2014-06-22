@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Willkommen zum Devsmeetup!</title>
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/style.css" id="theme">
+	</head>
+
+	<body>
+
+		<div class="reveal">
+			<div class="slides">
+				<section>
+					<img id="devsmeetup-logo" width="275px" heigh="278px" src="img/devsmeetup.svg">
+				</section>
+				<section>
+					<h1>Willkommen!</h1>
+				</section>
+				<section>
+					<h2>
+						<img width="300px" height="300px" src="img/gruenhof.svg">
+					</h2>
+					<div>
+						Co-Working,
+						Gründungskultur,
+						Café Pow!
+					</div>
+					<small>
+						<a href="http://www.gruenhof.org/">gruenhof.org</a>
+					</small>
+				</section>
+				<section>
+					<h2>
+						<img width="960px" height="240px" src="img/codio.svg">
+					</h2>
+					<div>
+						The worlds most powerful web IDE,<br>
+						free for all open source projects
+					</div>
+					<small>
+						<a href="https://codio.com/">codio.com</a>
+					</small>
+				</section>
+				<section>
+					<h2>
+						<img width="960px" height="240px" src="img/continum.jpg">
+					</h2>
+					<div>
+						Managed Server,<br>
+						E-Commerce (Oxid, Magento, ...)
+					</div>
+					<small>
+						<a href="https://www.continum.net/">https://www.continum.net/</a>
+					</small>
+				</section>
+				<section>
+					<h1>Getränke!</h1>
+					<ul>
+						<li>Bitte selbstständig nehmen</li>
+						<li>... und zahlen nicht vergessen! :P</li>
+					</ul>
+				</section>
+				<section>
+					<h1>Vortrag</h1>
+				</section>
+			</div>
+		</div>
+
+		<script src="js/reveal.min.js"></script>
+		<script>
+
+			// Animation listener.
+			(function ( w ) {
+				var pfx = ['webkit', 'moz', 'MS', 'o', ''];
+				w.PrefixedEvent = function PrefixedEvent ( element, type, callback ) {
+					for (var p = 0; p < pfx.length; p++) {
+						if (!pfx[p]) {
+							type = type.toLowerCase()
+						};
+						element.addEventListener(pfx[p]+type, callback, false);
+					}
+				};
+			})( window );
+
+			// Random Number
+			(function ( w ) {
+				w.getNumberBetween = function getNumberBetween ( min, max ) {
+					return Math.floor(Math.random() * (max - min + 1)) + min;
+				}
+			})( window );
+
+			// Main
+			// -------------------------
+			(function ( doc ) {
+				var dmLogo = document.getElementById('devsmeetup-logo'),
+					pulseIdx;
+
+				var addPulse = function () {
+						pulseIdx = setInterval( function () {
+							console.log('pulse');
+							dmLogo.classList.add('animated', 'pulse');
+						}, getNumberBetween(60000, 120000) );
+					};
+
+				PrefixedEvent(dmLogo, 'AnimationEnd', function () {
+					dmLogo.classList.remove('animated', 'pulse');
+					addPulse();
+				});
+
+				Reveal.addEventListener( 'ready', function() {
+					addPulse();
+				});
+				Reveal.addEventListener( 'slidechanged', function( ev ) {
+					if( ev.indexh === 0 ) {
+						addPulse();
+					} else {
+						clearInterval(pulseIdx);
+					}
+				});
+
+				Reveal.initialize({
+					controls: true,
+					progress: true,
+					history: true,
+					center: true,
+					transition: 'linear' // default/cube/page/concave/zoom/linear/fade/none
+				});
+			})( document );
+		</script>
+
+	</body>
+</html>
