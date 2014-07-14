@@ -1,0 +1,2346 @@
+<!DOCTYPE html>
+<!--
+  Copyright 2010 Google Inc.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+  Original slides: Marcin Wichary (mwichary@google.com)
+  Modifications: Ernest Delgado (ernestd@google.com)
+                 Alex Russell (slightlyoff@chromium.org)
+
+  landslide modifications: Adam Zapletal (adamzap@gmail.com)
+                           Nicolas Perriault (nperriault@gmail.com)
+-->
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Be Gru - Master of your Minions <br> with <br> <img alt="full_image" src="saltstack.png" /></title>
+    <!-- Styles -->
+    
+    <style type="text/css" media="print">
+      * {
+    margin: 0;
+    padding: 0;
+}
+
+@page {
+    size: landscape;
+}
+
+body {
+    font: 100% "Lucida Grande", "Trebuchet MS", Verdana, sans-serif;
+    padding: 0;
+    margin: 0;
+}
+
+div.slide {
+    min-width: 800px;
+    min-height: 600px;
+    padding: 1em;
+    overflow: hidden;
+    page-break-after: always;
+    border: 1px solid black;
+    border-radius: 20px;
+}
+
+div.slide div.inner {
+    width: 800px;
+    height: 600px;
+    margin: auto;
+    display: table-cell;
+}
+
+h1 {
+    font-size: 2.4em;
+}
+
+h2 {
+    font-size: 1.4em;
+}
+
+h3 {
+    margin: 1em 0;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+}
+
+p, li, pre {
+    margin: 1em 0;
+}
+
+li {
+    margin-left: 2em;
+}
+
+a {
+    color: #000000;
+}
+
+pre, code {
+    max-width: 800px;
+    background: #eee;
+    font-family: Monaco, monospace;
+    font-size: 90%;
+}
+
+pre {
+    padding: .2em .5em;
+    overflow: hidden;
+    border-radius: .8em;
+}
+
+code {
+    padding: 0 .2em;
+}
+
+.slide header:only-child h1 {
+  line-height: 180%;
+  text-align: center;
+  display: table-cell;
+  vertical-align: middle;
+  height: 600px;
+  width: 800px;
+  font-size: 48px;
+  margin-top:100px;
+  margin-bottom:100px;
+}
+
+#toc, #help, .slide aside, .slide footer, .slide .notes,
+.presenter_notes, #current_presenter_notes, #presenter_note {
+  display: none;
+}
+
+    </style>
+    <style type="text/css" media="screen, projection">
+      body {
+  font: 24px "Lucida Grande", "Trebuchet MS", Verdana, sans-serif;
+  background: #778;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+}
+
+div.presentation {
+  position: absolute;
+  width: 100%;
+  display: table-cell;
+  vertical-align: middle;
+  height: 100%;
+  background: inherit;
+}
+
+div.presentation > h1 {
+  display: none;
+}
+
+div.slides, body.expose div.slides.nocontext {
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  position: absolute;
+  display: block;
+}
+
+div.slides.nocontext {
+  width: 900px;
+  margin: 0 auto;
+  overflow: hidden;
+  position: relative;
+  left: auto;
+  top: auto;
+}
+
+div.slide {
+  display: inline;
+  position: absolute;
+  overflow: hidden;
+  width: 900px;
+  height: 700px;
+  margin-top: -350px;
+  margin-left: -400px;
+  left: 50%;
+  top: 50%;
+  background: -webkit-gradient(linear, left bottom, left top, from(#bbd), to(#fff));
+  background-color: #eee;
+  background: -moz-linear-gradient(bottom, #bbd, #fff);
+  -webkit-transition: margin 0.25s ease-in-out;
+  -moz-transition: margin 0.25s ease-in-out;
+  -o-transition: margin 0.25s ease-in-out;
+  border-top-left-radius: 20px;
+  -moz-border-radius-topleft: 20px;
+  -webkit-border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  -moz-border-radius-topright: 20px;
+  -webkit-border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  -moz-border-radius-bottomright: 20px;
+  -webkit-border-bottom-right-radius: 20px;
+  border-bottom-left-radius: 20px;
+  -moz-border-radius-bottomleft: 20px;
+  -webkit-border-bottom-left-radius: 20px;
+}
+
+/* Expose */
+
+body.expose div.slides {
+  float: left;
+  position: relative;
+  overflow: auto;
+  margin-bottom: 10px;
+}
+
+body.expose div.slide {
+  display: block;
+  float: left;
+  position: relative;
+  left: auto !important;
+  top: auto !important;
+  margin: 10px !important;
+  -webkit-transition: none;
+  -moz-transition: none;
+  -o-transition: none;
+  -moz-transform: scale(.33, .33);
+  -moz-transform-origin: 0 0;
+  -webkit-transform: scale(.33, .33);
+  -webkit-transform-origin: 0 0;
+  -o-transform: scale(.33, .33);
+  -o-transform-origin: 0 0;
+  -webkit-transition: none;
+  -moz-transition: none;
+  -o-transition: none;
+  cursor: pointer;
+}
+
+body.expose div.slide:hover {
+  background: -webkit-gradient(linear, left bottom, left top, from(#bdd), to(#fff));
+  background-color: #eee;
+  background: -moz-linear-gradient(bottom, #bdd, #fff);
+}
+
+body.expose .slide-wrapper {
+  float: left;
+  position: relative;
+  margin: .5%;
+  width: 300px;
+  height: 233px;
+}
+
+body.expose .slide footer {
+}
+
+body.expose .slide .inner {
+}
+
+body.expose .slide.far-past,
+body.expose .slide.past,
+body.expose .slide.future,
+body.expose .slide.far-future {
+  margin-left: 0;
+}
+
+body.expose .slide.current {
+  background: -webkit-gradient(linear, left bottom, left top, from(#ddb), to(#fff));
+  background-color: #eee;
+  background: -moz-linear-gradient(bottom, #ddb, #fff);
+  border: 16px solid #fff;
+  -moz-transform: scale(.315, .315);
+  -moz-transform-origin: 0 0;
+  -webkit-transform: scale(.315, .315);
+  -webkit-transform-origin: 0 0;
+  -o-transform: scale(.315, .315);
+  -o-transform-origin: 0 0;
+}
+
+/* Presenter Mode */
+
+body.presenter_view div.slide {
+  display: inline;
+  position: absolute;
+  overflow: hidden;
+  -moz-transform: scale(.5, .5);
+  -moz-transform-origin: 0 0;
+  -webkit-transform: scale(.5, .5);
+  -webkit-transform-origin: 0 0;
+  -o-transform: scale(.5, .5);
+  -o-transform-origin: 0 0;
+    margin-top: -300px;
+}
+
+body.presenter_view .slide.far-past {
+  display: block;
+  margin-left: -1500px;
+}
+
+body.presenter_view .slide.past {
+  display: block;
+  margin-left: -975px;
+}
+
+body.presenter_view .slide.current {
+  display: block;
+  margin-left: -475px;
+  border: 8px solid maroon;
+  z-index: 2;
+}
+
+body.presenter_view .slide.future {
+  display: block;
+  margin-left: 25px;
+  z-index: 1;
+}
+
+body.presenter_view .slide.far-future {
+  display: block;
+  margin-left: 525px;
+}
+
+body.presenter_view div#current_presenter_notes {
+    visibility: visible;
+    display: block;
+    position: absolute;
+    overflow: auto;
+    vertical-align: middle;
+    left: 50%;
+    top: 50%;
+    margin-left: -475px;
+    margin-top: 100px;
+    z-index: 2;
+    width: 950px;
+    border-style: solid;
+    height: 30%;
+    background-color: silver;
+}
+
+body.presenter_view div#current_presenter_notes section {
+  font-family: "Lucida Grande", "Trebuchet MS", Verdana, sans-serif;
+  color: black;
+  text-shadow: rgba(0, 0, 0, 0.2) 0 2px 5px;
+  display: block;
+  overflow: visible;
+    position: relative;
+    background-color: #fffeff;
+    height: 120px;
+    margin-right: 30px;
+    margin-top: 60px;
+    margin-left: 30px;
+    padding-right: 10px;
+    padding-left: 10px;
+    padding-top: 10px;
+}
+
+body.presenter_view div#current_presenter_notes section p {
+    margin: 0;
+}
+
+body.presenter_view div#current_presenter_notes h1 {
+    font-size: 50%;
+    display: block;
+}
+
+div#current_presenter_notes {
+  display: none;
+}
+
+div.slide div.presenter_notes, div.slides div.presenter_notes {
+  display: none;
+}
+
+/* Slide styles */
+
+div.slide p {
+  font-size: 30px;
+}
+
+.slide.far-past {
+  display: block;
+  margin-left: -2400px;
+}
+
+.slide.past {
+  display: block;
+  margin-left: -1400px;
+}
+
+.slide.current {
+  display: block;
+  margin-left: -450px;
+}
+
+.slide.future {
+  display: block;
+  margin-left: 500px;
+}
+
+.slide.far-future {
+  display: block;
+  margin-left: 1500px;
+}
+
+body.three-d div.slides {
+  -webkit-transform: translateX(50px) scale(0.8) rotateY(10deg);
+  -moz-transform: translateX(50px) scale(0.8) rotateY(10deg);
+  -o-transform: translateX(50px) scale(0.8) rotateY(10deg);
+}
+
+
+/* Content */
+
+header:not(:only-child) {
+  font-family: "Lucida Grande", "Trebuchet MS", Verdana, sans-serif;
+  font-weight: normal;
+  font-size: 50px;
+  letter-spacing: -.05em;
+  color: black;
+  text-shadow: rgba(0, 0, 0, 0.2) 0 2px 5px;
+  position: absolute;
+  left: 30px;
+  top: 25px;
+  margin: 0;
+  padding: 0;
+}
+
+header h1, header h2, header h3, header h4, header h5, header h6 {
+  display: inline;
+  font-size: 100%;
+  font-weight: normal;
+  padding: 0;
+  margin: 0;
+}
+
+header h2:first-child {
+  margin-top: 0;
+}
+
+section, .slide header:only-child h1 {
+  font-family: "Lucida Grande", "Trebuchet MS", Verdana, sans-serif;
+  color: #3f3f3f;
+  text-shadow: rgba(0, 0, 0, 0.2) 0 2px 5px;
+  margin-left: 30px;
+  margin-right: 30px;
+  margin-top: 100px;
+  display: block;
+  overflow: hidden;
+}
+
+img { display: block; margin: auto; }
+
+section img.align-center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+section img.align-right {
+  display: block;
+  margin-left: auto;
+  margin-right: 0;
+}
+
+section img.align-left {
+  display: block;
+  margin-right: auto;
+  margin-left: 0;
+}
+
+a {
+  color: inherit;
+  display: inline-block;
+  text-decoration: none;
+  line-height: 110%;
+  border-bottom: 2px solid #3f3f3f;
+}
+
+pre, code, tt {
+  font-family: Monaco, Consolas, 'Bitstream Vera Sans Mono', 'Lucida Console', FreeMono, Courier, monospace;
+}
+
+pre, .gist .gist-file .gist-data {
+  font-size: 18px;
+  max-height: 485px;
+  padding-top: 0.25em !important;
+  padding-right: 0.5em !important;
+  padding-left: 0.5em !important;
+  overflow: auto;
+}
+
+/* render a nice scrollbar in overflowed pre area's */
+::-webkit-scrollbar {
+  height: 8px;
+  width: 8px;
+}
+::-webkit-scrollbar-thumb {
+  background: -webkit-gradient(linear, left bottom, left top, from(#777), to(#bbd));
+  -webkit-border-radius: 1ex;
+}
+::-webkit-scrollbar-corner {
+  background: #dedede;
+}
+
+blockquote {
+  border-left: solid 8px #778;
+  padding: .1ex 1ex;
+  font-style: italic;
+}
+
+li {
+  padding: 10px 0;
+  font-size: 30px;
+}
+
+li pre { margin-left: 0em; }
+
+.slide header:only-child h1 {
+  line-height: 180%;
+  text-align: center;
+  display: table-cell;
+  vertical-align: middle;
+  height: 700px;
+  width: 900px;
+  font-size: 50px;
+  margin-top:100px;
+  margin-bottom:100px;
+}
+
+.sidebar {
+  clear: both;
+  background: -webkit-gradient(linear, top right, bottom right, from(#dde), to(#fff));
+  -webkit-transition: margin 0.25s ease-in-out;
+  background-color: #eee;
+  background: -moz-linear-gradient(right, #dde, #fff);
+  border-right: 5px solid #ccd;
+  z-index: 9999999;
+  height: 100%;
+  overflow: hidden;
+  top: 0;
+  position: absolute;
+  display: block;
+  margin: 0;
+  margin-left: -400px;
+  padding: 10px 16px;
+  overflow: auto;
+  -webkit-transition: margin 0.2s ease-in-out;
+  -moz-transition: margin 0.2s ease-in-out;
+  -o-transition: margin 0.2s ease-in-out;
+}
+
+.sidebar h2 {
+  text-shadow: rgba(0, 0, 0, 0.2) 0 2px 5px;
+  margin: 0 0 16px;
+  padding: 0;
+}
+
+.sidebar table {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border-collapse: collapse;
+}
+
+.sidebar table caption {
+  display: none;
+}
+
+.sidebar tr {
+  margin: 2px 0;
+  border-bottom: 1px solid #ccc;
+}
+
+.sidebar th {
+  text-align: left;
+  font-weight: normal;
+  max-width: 300px;
+  overflow: hidden;
+}
+
+.sidebar tr.sub th {
+  text-indent: 20px;
+}
+
+.sidebar td {
+  text-align: right;
+  min-width: 20px;
+}
+
+.sidebar a {
+  display: block;
+  text-decoration: none;
+  border-bottom: none;
+  padding: 4px 0;
+}
+
+.sidebar tr.active {
+  background: #ff0;
+}
+
+aside {
+  display: none;
+}
+  aside.source {
+    position: absolute;
+    bottom: 6px;
+    left: 10px;
+    text-indent: 10px;
+  }
+  aside.page_number {
+    position: absolute;
+    bottom: 6px;
+    right: 10px;
+    text-indent: 10px;
+  }
+
+.notes {
+  display: none;
+  padding: 10px;
+  background: #ccc;
+  border-radius: 10px;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+}
+  div.slide p.notes {
+    font-size: 90%;
+}
+
+/* Pygments default theme */
+.hll { background-color: #ffffcc }
+.c { color: #408080; font-style: italic } /* Comment */
+.err { border: 1px solid #FF0000 } /* Error */
+.k { color: #008000; font-weight: bold } /* Keyword */
+.o { color: #666666 } /* Operator */
+.cm { color: #408080; font-style: italic } /* Comment.Multiline */
+.cp { color: #BC7A00 } /* Comment.Preproc */
+.c1 { color: #408080; font-style: italic } /* Comment.Single */
+.cs { color: #408080; font-style: italic } /* Comment.Special */
+.gd { color: #A00000 } /* Generic.Deleted */
+.ge { font-style: italic } /* Generic.Emph */
+.gr { color: #FF0000 } /* Generic.Error */
+.gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.gi { color: #00A000 } /* Generic.Inserted */
+.go { color: #808080 } /* Generic.Output */
+.gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.gs { font-weight: bold } /* Generic.Strong */
+.gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.gt { color: #0040D0 } /* Generic.Traceback */
+.kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.kp { color: #008000 } /* Keyword.Pseudo */
+.kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.kt { color: #B00040 } /* Keyword.Type */
+.m { color: #666666 } /* Literal.Number */
+.s { color: #BA2121 } /* Literal.String */
+.na { color: #7D9029 } /* Name.Attribute */
+.nb { color: #008000 } /* Name.Builtin */
+.nc { color: #0000FF; font-weight: bold } /* Name.Class */
+.no { color: #880000 } /* Name.Constant */
+.nd { color: #AA22FF } /* Name.Decorator */
+.ni { color: #999999; font-weight: bold } /* Name.Entity */
+.ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+.nf { color: #0000FF } /* Name.Function */
+.nl { color: #A0A000 } /* Name.Label */
+.nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+.nt { color: #008000; font-weight: bold } /* Name.Tag */
+.nv { color: #19177C } /* Name.Variable */
+.ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+.w { color: #bbbbbb } /* Text.Whitespace */
+.mf { color: #666666 } /* Literal.Number.Float */
+.mh { color: #666666 } /* Literal.Number.Hex */
+.mi { color: #666666 } /* Literal.Number.Integer */
+.mo { color: #666666 } /* Literal.Number.Oct */
+.sb { color: #BA2121 } /* Literal.String.Backtick */
+.sc { color: #BA2121 } /* Literal.String.Char */
+.sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.s2 { color: #BA2121 } /* Literal.String.Double */
+.se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+.sh { color: #BA2121 } /* Literal.String.Heredoc */
+.si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+.sx { color: #008000 } /* Literal.String.Other */
+.sr { color: #BB6688 } /* Literal.String.Regex */
+.s1 { color: #BA2121 } /* Literal.String.Single */
+.ss { color: #19177C } /* Literal.String.Symbol */
+.bp { color: #008000 } /* Name.Builtin.Pseudo */
+.vc { color: #19177C } /* Name.Variable.Class */
+.vg { color: #19177C } /* Name.Variable.Global */
+.vi { color: #19177C } /* Name.Variable.Instance */
+.il { color: #666666 } /* Literal.Number.Integer.Long */
+.lineno { padding-right: 10px } /* A few space after linenos */
+
+#blank {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: black;
+  width: 100%;
+  height: 100%;
+  z-index: 64;
+  display: none;
+}
+
+.only_when_current {
+  visibility: hidden;
+}
+
+.slide.current .only_when_current {
+  visibility: visible;
+}
+
+.slide_banner {
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  height: 200px;
+  width: 130px;
+  margin: 20px;
+}
+
+img[alt=full_image] { width: 90%; }
+img[alt=inline] { display: inline; }
+img[alt=sub] { position: absolute; display: inline; margin-top: 50px; margin-left: -25px; }
+
+    </style>
+    
+    
+    <!-- /Styles -->
+    <!-- Javascripts -->
+    
+    <script>
+      function main() {
+    // Since we don't have the fallback of attachEvent and
+    // other IE only stuff we won't try to run JS for IE.
+    // It will run though when using Google Chrome Frame
+    if (document.all) { return; }
+
+    var currentSlideNo;
+    var notesOn = false;
+    var expanded = false;
+    var hiddenContext = false;
+    var blanked = false;
+    var slides = document.getElementsByClassName('slide');
+    var touchStartX = 0;
+    var spaces = /\s+/, a1 = [''];
+    var tocOpened = false;
+    var helpOpened = false;
+    var overviewActive = false;
+    var modifierKeyDown = false;
+    var scale = 1;
+    var showingPresenterView = false;
+    var presenterViewWin = null;
+    var isPresenterView = false;
+
+    var str2array = function(s) {
+        if (typeof s == 'string' || s instanceof String) {
+            if (s.indexOf(' ') < 0) {
+                a1[0] = s;
+                return a1;
+            } else {
+                return s.split(spaces);
+            }
+        }
+        return s;
+    };
+
+    var trim = function(str) {
+        return str.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+    };
+
+    var addClass = function(node, classStr) {
+        classStr = str2array(classStr);
+        var cls = ' ' + node.className + ' ';
+        for (var i = 0, len = classStr.length, c; i < len; ++i) {
+            c = classStr[i];
+            if (c && cls.indexOf(' ' + c + ' ') < 0) {
+                cls += c + ' ';
+            }
+        }
+        node.className = trim(cls);
+    };
+
+    var removeClass = function(node, classStr) {
+        var cls;
+        if (!node) {
+            throw 'no node provided';
+        }
+        if (classStr !== undefined) {
+            classStr = str2array(classStr);
+            cls = ' ' + node.className + ' ';
+            for (var i = 0, len = classStr.length; i < len; ++i) {
+                cls = cls.replace(' ' + classStr[i] + ' ', ' ');
+            }
+            cls = trim(cls);
+        } else {
+            cls = '';
+        }
+        if (node.className != cls) {
+            node.className = cls;
+        }
+    };
+
+    var getSlideEl = function(slideNo) {
+        if (slideNo > 0) {
+            return slides[slideNo - 1];
+        } else {
+            return null;
+        }
+    };
+
+    var getSlideTitle = function(slideNo) {
+        var el = getSlideEl(slideNo);
+        if (el) {
+            var headers = el.getElementsByTagName('header');
+            if (headers.length > 0) {
+                return el.getElementsByTagName('header')[0].innerText;
+            }
+        }
+        return null;
+    };
+
+    var getSlidePresenterNote = function(slideNo) {
+        var el = getSlideEl(slideNo);
+        if (el) {
+            var n = el.getElementsByClassName('presenter_notes');
+            if (n.length > 0) {
+                return n[0];
+            }
+        }
+        return null;
+    };
+
+    var changeSlideElClass = function(slideNo, className) {
+        var el = getSlideEl(slideNo);
+        if (el) {
+            removeClass(el, 'far-past past current future far-future');
+            addClass(el, className);
+        }
+    };
+
+    var updateSlideClasses = function(updateOther) {
+        window.location.hash = (isPresenterView ? "presenter" : "slide") + currentSlideNo;
+
+        for (var i=1; i<currentSlideNo-1; i++) {
+            changeSlideElClass(i, 'far-past');
+        }
+
+        changeSlideElClass(currentSlideNo - 1, 'past');
+        changeSlideElClass(currentSlideNo, 'current');
+        changeSlideElClass(currentSlideNo + 1, 'future');
+
+        for (i=currentSlideNo+2; i<slides.length+1; i++) {
+            changeSlideElClass(i, 'far-future');
+        }
+
+        highlightCurrentTocLink();
+
+        processContext();
+
+        document.getElementsByTagName('title')[0].innerText = getSlideTitle(currentSlideNo);
+
+        updatePresenterNotes();
+
+        if (updateOther) { updateOtherPage(); }
+    };
+
+    var updatePresenterNotes = function() {
+        if (!isPresenterView) { return; }
+
+        var existingNote = document.getElementById('current_presenter_notes');
+        var currentNote = getSlidePresenterNote(currentSlideNo).cloneNode(true);
+        currentNote.setAttribute('id', 'presenter_note');
+
+        existingNote.replaceChild(currentNote, document.getElementById('presenter_note'));
+    };
+
+    var highlightCurrentTocLink = function() {
+        var toc = document.getElementById('toc');
+
+        if (toc) {
+            var tocRows = toc.getElementsByTagName('tr');
+            for (var i=0; i<tocRows.length; i++) {
+                removeClass(tocRows.item(i), 'active');
+            }
+
+            var currentTocRow = document.getElementById('toc-row-' + currentSlideNo);
+            if (currentTocRow) {
+                addClass(currentTocRow, 'active');
+            }
+        }
+    };
+
+    var updateOtherPage = function() {
+        if (!showingPresenterView) { return; }
+
+        var w = isPresenterView ? window.opener : presenterViewWin;
+        w.postMessage('slide#' + currentSlideNo, '*');
+    };
+
+    var nextSlide = function() {
+        if (currentSlideNo < slides.length) {
+            currentSlideNo++;
+        }
+        updateSlideClasses(true);
+    };
+
+    var prevSlide = function() {
+        if (currentSlideNo > 1) {
+            currentSlideNo--;
+        }
+        updateSlideClasses(true);
+    };
+
+    var showNotes = function() {
+        var notes = getSlideEl(currentSlideNo).getElementsByClassName('notes');
+        for (var i = 0, len = notes.length; i < len; i++) {
+            notes.item(i).style.display = (notesOn) ? 'none':'block';
+        }
+        notesOn = !notesOn;
+    };
+
+    var showSlideNumbers = function() {
+        var asides = document.getElementsByClassName('page_number');
+        var hidden = asides[0].style.display != 'block';
+        for (var i = 0; i < asides.length; i++) {
+            asides.item(i).style.display = hidden ? 'block' : 'none';
+        }
+    };
+
+    var showSlideSources = function() {
+        var asides = document.getElementsByClassName('source');
+        var hidden = asides[0].style.display != 'block';
+        for (var i = 0; i < asides.length; i++) {
+            asides.item(i).style.display = hidden ? 'block' : 'none';
+        }
+    };
+
+    var showToc = function() {
+        if (helpOpened) {
+                showHelp();
+        }
+        var toc = document.getElementById('toc');
+        if (toc) {
+            toc.style.marginLeft = tocOpened ? '-' + (toc.clientWidth + 20) + 'px' : '0px';
+            tocOpened = !tocOpened;
+        }
+        updateOverview();
+    };
+
+    var showHelp = function() {
+        if (tocOpened) {
+                showToc();
+        }
+
+        var help = document.getElementById('help');
+
+        if (help) {
+            help.style.marginLeft = helpOpened ? '-' + (help.clientWidth + 20) + 'px' : '0px';
+            helpOpened = !helpOpened;
+        }
+    };
+
+    var showPresenterView = function() {
+        if (isPresenterView) { return; }
+
+        if (showingPresenterView) {
+            presenterViewWin.close();
+            presenterViewWin = null;
+            showingPresenterView = false;
+        } else {
+            presenterViewWin = open(window.location.pathname + "#presenter" + currentSlideNo, 'presenter_notes',
+                                                                    'directories=no,location=no,toolbar=no,menubar=no,copyhistory=no');
+            showingPresenterView = true;
+        }
+    };
+
+    var switch3D = function() {
+        if (document.body.className.indexOf('three-d') == -1) {
+            document.getElementsByClassName('presentation')[0].style.webkitPerspective = '1000px';
+            document.body.className += ' three-d';
+        } else {
+            window.setTimeout('document.getElementsByClassName(\'presentation\')[0].style.webkitPerspective = \'0\';', 2000);
+            document.body.className = document.body.className.replace(/three-d/, '');
+        }
+    };
+
+    var toggleOverview = function() {
+        if (!overviewActive) {
+            addClass(document.body, 'expose');
+            overviewActive = true;
+            setScale(1);
+        } else {
+            removeClass(document.body, 'expose');
+            overviewActive = false;
+            if (expanded) {
+                setScale(scale);    // restore scale
+            }
+        }
+        processContext();
+        updateOverview();
+    };
+
+    var updateOverview = function() {
+        try {
+            var presentation = document.getElementsByClassName('presentation')[0];
+        } catch (e) {
+            return;
+        }
+
+        if (isPresenterView) {
+            var action = overviewActive ? removeClass : addClass;
+            action(document.body, 'presenter_view');
+        }
+
+        var toc = document.getElementById('toc');
+
+        if (!toc) {
+            return;
+        }
+
+        if (!tocOpened || !overviewActive) {
+            presentation.style.marginLeft = '0px';
+            presentation.style.width = '100%';
+        } else {
+            presentation.style.marginLeft = toc.clientWidth + 'px';
+            presentation.style.width = (presentation.clientWidth - toc.clientWidth) + 'px';
+        }
+    };
+
+    var computeScale = function() {
+        var cSlide = document.getElementsByClassName('current')[0];
+        var sx = cSlide.clientWidth / window.innerWidth;
+        var sy = cSlide.clientHeight / window.innerHeight;
+        return 1 / Math.max(sx, sy);
+    };
+
+    var setScale = function(scale) {
+        var presentation = document.getElementsByClassName('slides')[0];
+        var transform = 'scale(' + scale + ')';
+        presentation.style.MozTransform = transform;
+        presentation.style.WebkitTransform = transform;
+        presentation.style.OTransform = transform;
+        presentation.style.msTransform = transform;
+        presentation.style.transform = transform;
+    };
+
+    var expandSlides = function() {
+        if (overviewActive) {
+            return;
+        }
+        if (expanded) {
+            setScale(1);
+            expanded = false;
+        } else {
+            scale = computeScale();
+            setScale(scale);
+            expanded = true;
+        }
+    };
+
+    var showContext = function() {
+        try {
+            var presentation = document.getElementsByClassName('slides')[0];
+            removeClass(presentation, 'nocontext');
+        } catch (e) {}
+    };
+
+    var hideContext = function() {
+        try {
+            var presentation = document.getElementsByClassName('slides')[0];
+            addClass(presentation, 'nocontext');
+        } catch (e) {}
+    };
+
+    var processContext = function() {
+        if (hiddenContext) {
+            hideContext();
+        } else {
+            showContext();
+        }
+    };
+
+    var toggleContext = function() {
+        hiddenContext = !hiddenContext;
+        processContext();
+    };
+
+    var toggleBlank = function() {
+        blank_elem = document.getElementById('blank');
+
+        blank_elem.style.display = blanked ? 'none' : 'block';
+
+        blanked = !blanked;
+    };
+
+    var isModifierKey = function(keyCode) {
+        switch (keyCode) {
+            case 16: // shift
+            case 17: // ctrl
+            case 18: // alt
+            case 91: // command
+                return true;
+                break;
+            default:
+                return false;
+                break;
+        }
+    };
+
+    var checkModifierKeyUp = function(event) {
+        if (isModifierKey(event.keyCode)) {
+            modifierKeyDown = false;
+        }
+    };
+
+    var checkModifierKeyDown = function(event) {
+        if (isModifierKey(event.keyCode)) {
+            modifierKeyDown = true;
+        }
+    };
+
+    var handleBodyKeyDown = function(event) {
+        switch (event.keyCode) {
+            case 13: // Enter
+                if (overviewActive) {
+                    toggleOverview();
+                }
+                break;
+            case 27: // ESC
+                toggleOverview();
+                break;
+            case 37: // left arrow
+            case 33: // page up
+                event.preventDefault();
+                prevSlide();
+                break;
+            case 39: // right arrow
+            case 32: // space
+            case 34: // page down
+                event.preventDefault();
+                nextSlide();
+                break;
+            case 50: // 2
+                if (!modifierKeyDown) {
+                        showNotes();
+                }
+                break;
+            case 51: // 3
+                if (!modifierKeyDown && !overviewActive) {
+                    switch3D();
+                }
+                break;
+            case 190: // .
+            case 48: // 0
+            case 66: // b
+                if (!modifierKeyDown && !overviewActive) {
+                    toggleBlank();
+                }
+                break;
+            case 67: // c
+                if (!modifierKeyDown && !overviewActive) {
+                    toggleContext();
+                }
+                break;
+            case 69: // e
+                if (!modifierKeyDown && !overviewActive) {
+                    expandSlides();
+                }
+                break;
+            case 72: // h
+                showHelp();
+                break;
+            case 78: // n
+                if (!modifierKeyDown && !overviewActive) {
+                    showSlideNumbers();
+                }
+                break;
+            case 80: // p
+                if (!modifierKeyDown && !overviewActive) {
+                    showPresenterView();
+                }
+                break;
+            case 83: // s
+                if (!modifierKeyDown && !overviewActive) {
+                    showSlideSources();
+                }
+                break;
+            case 84: // t
+                showToc();
+                break;
+        }
+    };
+
+    var handleWheel = function(event) {
+        if (tocOpened || helpOpened || overviewActive) {
+            return;
+        }
+
+        var delta = 0;
+
+        if (!event) {
+            event = window.event;
+        }
+
+        if (event.wheelDelta) {
+            delta = event.wheelDelta/120;
+            if (window.opera) delta = -delta;
+        } else if (event.detail) {
+            delta = -event.detail/3;
+        }
+
+        if (delta && delta <0) {
+            nextSlide();
+        } else if (delta) {
+            prevSlide();
+        }
+    };
+
+    var addSlideClickListeners = function() {
+        for (var i=0; i < slides.length; i++) {
+            var slide = slides.item(i);
+            slide.num = i + 1;
+            slide.addEventListener('click', function(e) {
+                if (overviewActive) {
+                    currentSlideNo = this.num;
+                    toggleOverview();
+                    updateSlideClasses(true);
+                    e.preventDefault();
+                }
+                return false;
+            }, true);
+        }
+    };
+
+    var addRemoteWindowControls = function() {
+        window.addEventListener("message", function(e) {
+            if (e.data.indexOf("slide#") != -1) {
+                    currentSlideNo = Number(e.data.replace('slide#', ''));
+                    updateSlideClasses(false);
+            }
+        }, false);
+    };
+
+    var addTouchListeners = function() {
+        document.addEventListener('touchstart', function(e) {
+            touchStartX = e.touches[0].pageX;
+        }, false);
+        document.addEventListener('touchend', function(e) {
+            var pixelsMoved = touchStartX - e.changedTouches[0].pageX;
+            var SWIPE_SIZE = 150;
+            if (pixelsMoved > SWIPE_SIZE) {
+                nextSlide();
+            }
+            else if (pixelsMoved < -SWIPE_SIZE) {
+             prevSlide();
+            }
+        }, false);
+    };
+
+    var addTocLinksListeners = function() {
+        var toc = document.getElementById('toc');
+        if (toc) {
+            var tocLinks = toc.getElementsByTagName('a');
+            for (var i=0; i < tocLinks.length; i++) {
+                tocLinks.item(i).addEventListener('click', function(e) {
+                    currentSlideNo = Number(this.attributes['href'].value.replace('#slide', ''));
+                    updateSlideClasses(true);
+                    e.preventDefault();
+                }, true);
+            }
+        }
+    };
+
+    // initialize
+
+    (function() {
+        if (window.location.hash == "") {
+            currentSlideNo = 1;
+        } else if (window.location.hash.indexOf("#presenter") != -1) {
+            currentSlideNo = Number(window.location.hash.replace('#presenter', ''));
+            isPresenterView = true;
+            showingPresenterView = true;
+            presenterViewWin = window;
+            addClass(document.body, 'presenter_view');
+        } else {
+            currentSlideNo = Number(window.location.hash.replace('#slide', ''));
+        }
+
+        document.addEventListener('keyup', checkModifierKeyUp, false);
+        document.addEventListener('keydown', handleBodyKeyDown, false);
+        document.addEventListener('keydown', checkModifierKeyDown, false);
+        document.addEventListener('DOMMouseScroll', handleWheel, false);
+
+        window.onmousewheel = document.onmousewheel = handleWheel;
+        window.onresize = expandSlides;
+
+        for (var i = 0, el; el = slides[i]; i++) {
+            addClass(el, 'slide far-future');
+        }
+        updateSlideClasses(false);
+
+        // add support for finger events (filter it by property detection?)
+        addTouchListeners();
+
+        addTocLinksListeners();
+
+        addSlideClickListeners();
+
+        addRemoteWindowControls();
+    })();
+}
+
+    </script>
+    
+    
+    <!-- /Javascripts -->
+</head>
+<body>
+  <div id="blank"></div>
+  <div class="presentation">
+    <div id="current_presenter_notes">
+      <div id="presenter_note"></div>
+    </div>
+    <div class="slides">
+      
+      <!-- slide source: slides_saltstack.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="slide_banner only_when_current"></div>
+          <div class="inner">
+            
+            <header><h1>Be Gru - Master of your Minions <br> with <br> <img alt="full_image" src="data:image/png;base64,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" /></h1></header>
+            
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="slides_saltstack.md">slides_saltstack.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              1/23
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: slides_saltstack.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="slide_banner only_when_current"></div>
+          <div class="inner">
+            
+            <header><h1>self.about</h1></header>
+            
+            
+            <section><ul>
+<li>Tobias Paepke</li>
+<li>1980</li>
+<li>Admin seit 1998</li>
+<li>Python seit 2000 (1.5)</li>
+<li>Web-dev seit 2010</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="slides_saltstack.md">slides_saltstack.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              2/23
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: slides_saltstack.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="slide_banner only_when_current"></div>
+          <div class="inner">
+            
+            <header><h1>Was macht saltstack?</h1></header>
+            
+            
+            <section><p>Programme entfernt ausführen</p>
+<p>Definierten Zustand herstellen</p>
+<p>Abrufen von Informationen</p></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="slides_saltstack.md">slides_saltstack.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              3/23
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: slides_saltstack.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="slide_banner only_when_current"></div>
+          <div class="inner">
+            
+            <header><h1>Grundsätzliches</h1></header>
+            
+            
+            <section><ul>
+<li>deklarativ: Puppet, Chef, CFengine</li>
+<li>imperativ: ansible, fabric</li>
+<li>reale Welt: Salt kann beides</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="slides_saltstack.md">slides_saltstack.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              4/23
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: slides_saltstack.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="slide_banner only_when_current"></div>
+          <div class="inner">
+            
+            <header><h1>Architektur</h1></header>
+            
+            
+            <section><ul>
+<li>Python</li>
+<li>via ZeroMQ</li>
+<li>via SSH</li>
+<li>Client/Server</li>
+<li>Serverlos</li>
+<li>Linux/Mac/BSD/Windows</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="slides_saltstack.md">slides_saltstack.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              5/23
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: slides_saltstack.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="slide_banner only_when_current"></div>
+          <div class="inner">
+            
+            <header><h1>Begriffe</h1></header>
+            
+            
+            <section><ul>
+<li>Master - der Verwaltungsserver</li>
+<li>Minon - ein einzelner, zu steuernder Host</li>
+<li>Pillar - Daten über den Host / Anwendung</li>
+<li>Grains - erhobene oder definierte Daten des Minion</li>
+<li>Module - Ausfuehrbares Stück Code, meist auf Zielsystem</li>
+<li>State - Beschreibung wie etwas auf dem Zielsystem aussehen muss</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="slides_saltstack.md">slides_saltstack.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              6/23
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: slides_saltstack.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="slide_banner only_when_current"></div>
+          <div class="inner">
+            
+            <header><h1>Begriffe erweitert</h1></header>
+            
+            
+            <section><ul>
+<li>Returners - Zusätzliche Möglichkeit um die Ergebnisse zu schreiben</li>
+<li>Reactor - internes System um automatisch Ereignisse zu verarbeiten</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="slides_saltstack.md">slides_saltstack.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              7/23
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: slides_saltstack.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="slide_banner only_when_current"></div>
+          <div class="inner">
+            
+            <header><h1>Der Master</h1></header>
+            
+            
+            <section><ul>
+<li>Steuert die Minions</li>
+<li>Multi-Master möglich - nie benutzt</li>
+<li>Proxy Möglichkeit bei sehr verteilter Infrastruktur</li>
+<li>Minonless möglich um nur per SSH die Minions zu steuern - ähnlich ansible</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="slides_saltstack.md">slides_saltstack.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              8/23
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: slides_saltstack.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="slide_banner only_when_current"></div>
+          <div class="inner">
+            
+            <header><h1>Der Minion</h1></header>
+            
+            
+            <section><ul>
+<li>Wird vom Master mit aufgaben versorgt</li>
+<li>Kommuniziert per ZeroMQ</li>
+<li>Kann Statefiles ohne Master verarbeiten (masterless)</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="slides_saltstack.md">slides_saltstack.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              9/23
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: slides_saltstack.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="slide_banner only_when_current"></div>
+          <div class="inner">
+            
+            <header><h1>Grundlegendes</h1></header>
+            
+            
+            <section><ul>
+<li>Konfiguration per YAML<ul>
+<li>alternativ JSON, pure Python, als Template mit Jinja2, Mako, ...</li>
+</ul>
+</li>
+<li>Befehle instantan auf alles Hosts durch ZeroMQ - PubSub</li>
+<li>Parallel, aber auch seriell mögliche</li>
+<li>Modules - zum ausführen von Befehlen</li>
+<li>States - um Stati zu definieren</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="slides_saltstack.md">slides_saltstack.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              10/23
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: slides_saltstack.md -->
+      <div class="slide-wrapper">
+        <div class="slide has_code">
+          <div class="slide_banner only_when_current"></div>
+          <div class="inner">
+            
+            <header><h1>Module</h1></header>
+            
+            
+            <section><p>Ausführen von Befehlen</p>
+<div class="highlight"><pre><span class="lineno">1</span> salt <span class="s1">&#39;*&#39;</span> test.ping
+</pre></div>
+
+<p>Ergebnis</p>
+<div class="highlight"><pre><span class="lineno">1</span> <span class="l-Scalar-Plain">localhost</span><span class="p-Indicator">:</span>
+<span class="lineno">2</span>   <span class="l-Scalar-Plain">True</span>
+</pre></div>
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="slides_saltstack.md">slides_saltstack.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              11/23
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: slides_saltstack.md -->
+      <div class="slide-wrapper">
+        <div class="slide has_code">
+          <div class="slide_banner only_when_current"></div>
+          <div class="inner">
+            
+            <header><h1>States</h1></header>
+            
+            
+            <section><p>Erzeugen von Zuständen</p>
+<div class="highlight"><pre><span class="lineno">1</span> <span class="l-Scalar-Plain">apache2</span><span class="p-Indicator">:</span>
+<span class="lineno">2</span>   <span class="l-Scalar-Plain">pkg</span><span class="p-Indicator">:</span>
+<span class="lineno">3</span>     <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">installed</span>
+<span class="lineno">4</span>   <span class="l-Scalar-Plain">service</span><span class="p-Indicator">:</span>
+<span class="lineno">5</span>     <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">running</span>
+<span class="lineno">6</span>     <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">require</span><span class="p-Indicator">:</span>
+<span class="lineno">7</span>     <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">pkg</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">apache</span>
+</pre></div>
+
+<ul>
+<li>Definition Stati auf Hosts</li>
+<li>Dateien vorhanden</li>
+<li>Pakete installiert</li>
+<li>Benutzer eingerichtet</li>
+<li>Datenbanken erstellt</li>
+<li>Dienste gestartet, ...</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="slides_saltstack.md">slides_saltstack.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              12/23
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: slides_saltstack.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="slide_banner only_when_current"></div>
+          <div class="inner">
+            
+            <header><h1>Matching</h1></header>
+            
+            
+            <section><ul>
+<li>globbing</li>
+<li>regex</li>
+<li>grains - Betriebssystem, CPU, frei definierbar</li>
+<li>Gruppen/Environment - vorab definierte Gruppen z.B. alle Balancer</li>
+<li>Kombination aus obigem</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="slides_saltstack.md">slides_saltstack.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              13/23
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: slides_saltstack.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="slide_banner only_when_current"></div>
+          <div class="inner">
+            
+            <header><h1>Softwareverteilung</h1></header>
+            
+            
+            <section><ul>
+<li>Simple Definition von einzelnen Repos unter Linx</li>
+<li>Git Checkouts</li>
+<li>eigener Paketmanager für Windows (nie getestet)</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="slides_saltstack.md">slides_saltstack.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              14/23
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: slides_saltstack.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="slide_banner only_when_current"></div>
+          <div class="inner">
+            
+            <header><h1>Scheduling</h1></header>
+            
+            
+            <section><ul>
+<li>eigene shellbefehle</li>
+<li>Highstate alle 30 min</li>
+<li>Über Returner auch Protokollierung</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="slides_saltstack.md">slides_saltstack.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              15/23
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: slides_saltstack.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="slide_banner only_when_current"></div>
+          <div class="inner">
+            
+            <header><h1>Pillar</h1></header>
+            
+            
+            <section><ul>
+<li>Sensitive Daten, zentral gepflegt
+  Nur auf den Hosts auf denen Sie zugewiesen sind</li>
+<li>Variablen - Bin ich production?</li>
+<li>Minion Konfiguration</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="slides_saltstack.md">slides_saltstack.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              16/23
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: slides_saltstack.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="slide_banner only_when_current"></div>
+          <div class="inner">
+            
+            <header><h1>Grains</h1></header>
+            
+            
+            <section><ul>
+<li>Informationen zum System</li>
+<li>zur Definition in Salt States und Pillars</li>
+<li>automatisch generiert</li>
+<li>auf Minion fest definiert: rollen, Standort, Seriennummer</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="slides_saltstack.md">slides_saltstack.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              17/23
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: slides_saltstack.md -->
+      <div class="slide-wrapper">
+        <div class="slide has_code">
+          <div class="slide_banner only_when_current"></div>
+          <div class="inner">
+            
+            <header><h1>Grains</h1></header>
+            
+            
+            <section><div class="highlight"><pre><span class="lineno">1</span> salt -G <span class="s1">&#39;os:CentOS&#39;</span> test.ping
+<span class="lineno">2</span> salt -G <span class="s1">&#39;hardware:HP&#39;</span> pkg.install hp-ilo
+<span class="lineno">3</span> salt -G <span class="s1">&#39;rack:14&#39;</span> system.shutdown
+</pre></div>
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="slides_saltstack.md">slides_saltstack.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              18/23
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: slides_saltstack.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="slide_banner only_when_current"></div>
+          <div class="inner">
+            
+            <header><h1>Dateibackend salt://</h1></header>
+            
+            
+            <section><ul>
+<li>Dateisystem</li>
+<li>git</li>
+<li>mercurial</li>
+<li>stapelbar</li>
+<li>commandline per cp.getfile</li>
+<li>über Rezepte</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="slides_saltstack.md">slides_saltstack.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              19/23
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: slides_saltstack.md -->
+      <div class="slide-wrapper">
+        <div class="slide has_code">
+          <div class="slide_banner only_when_current"></div>
+          <div class="inner">
+            
+            <header><h1>Environments</h1></header>
+            
+            
+            <section><p>Verschiedene Staging Umgebungen</p>
+<div class="highlight"><pre><span class="lineno">1</span> file_roots:
+<span class="lineno">2</span>   base:
+<span class="lineno">3</span>     - /srv/salt/prod
+<span class="lineno">4</span>   dev:
+<span class="lineno">5</span>     - /srv/salt/dev
+</pre></div>
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="slides_saltstack.md">slides_saltstack.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              20/23
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: slides_saltstack.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="slide_banner only_when_current"></div>
+          <div class="inner">
+            
+            <header><h1>salt-ssh</h1></header>
+            
+            
+            <section><ul>
+<li>Keine Installation eines Minion</li>
+<li>Steuerung Switches oder anderer Systeme</li>
+<li>Bootstrapping</li>
+<li>Konfiguration über Roster</li>
+<li>noch nicht alles möglich</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="slides_saltstack.md">slides_saltstack.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              21/23
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: slides_saltstack.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="slide_banner only_when_current"></div>
+          <div class="inner">
+            
+            <header><h1>Weiteres</h1></header>
+            
+            
+            <section><ul>
+<li>Cloud Platformen: Azure, Rackspace, EC2, OpenStack</li>
+<li>Docker.io</li>
+<li>Testing - Unit und Integration Tests</li>
+<li>Python API - import salt</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="slides_saltstack.md">slides_saltstack.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              22/23
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: slides_saltstack.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="slide_banner only_when_current"></div>
+          <div class="inner">
+            
+            <header><h1>Thank you!</h1></header>
+            
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="slides_saltstack.md">slides_saltstack.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              23/23
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+  <div id="toc" class="sidebar hidden">
+    <h2>Table of Contents</h2>
+    <table>
+      <caption>Table of Contents</caption>
+      
+      <tr id="toc-row-1">
+        <th><a href="#slide1">Be Gru - Master of your Minions <br> with <br> <img alt="full_image" src="saltstack.png" /></a></th>
+        <td><a href="#slide1">1</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-2">
+        <th><a href="#slide2">self.about</a></th>
+        <td><a href="#slide2">2</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-3">
+        <th><a href="#slide3">Was macht saltstack?</a></th>
+        <td><a href="#slide3">3</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-4">
+        <th><a href="#slide4">Grundsätzliches</a></th>
+        <td><a href="#slide4">4</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-5">
+        <th><a href="#slide5">Architektur</a></th>
+        <td><a href="#slide5">5</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-6">
+        <th><a href="#slide6">Begriffe</a></th>
+        <td><a href="#slide6">6</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-7">
+        <th><a href="#slide7">Begriffe erweitert</a></th>
+        <td><a href="#slide7">7</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-8">
+        <th><a href="#slide8">Der Master</a></th>
+        <td><a href="#slide8">8</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-9">
+        <th><a href="#slide9">Der Minion</a></th>
+        <td><a href="#slide9">9</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-10">
+        <th><a href="#slide10">Grundlegendes</a></th>
+        <td><a href="#slide10">10</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-11">
+        <th><a href="#slide11">Module</a></th>
+        <td><a href="#slide11">11</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-12">
+        <th><a href="#slide12">States</a></th>
+        <td><a href="#slide12">12</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-13">
+        <th><a href="#slide13">Matching</a></th>
+        <td><a href="#slide13">13</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-14">
+        <th><a href="#slide14">Softwareverteilung</a></th>
+        <td><a href="#slide14">14</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-15">
+        <th><a href="#slide15">Scheduling</a></th>
+        <td><a href="#slide15">15</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-16">
+        <th><a href="#slide16">Pillar</a></th>
+        <td><a href="#slide16">16</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-17">
+        <th><a href="#slide17">Grains</a></th>
+        <td><a href="#slide17">17</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-18">
+        <th><a href="#slide18">Grains</a></th>
+        <td><a href="#slide18">18</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-19">
+        <th><a href="#slide19">Dateibackend salt://</a></th>
+        <td><a href="#slide19">19</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-20">
+        <th><a href="#slide20">Environments</a></th>
+        <td><a href="#slide20">20</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-21">
+        <th><a href="#slide21">salt-ssh</a></th>
+        <td><a href="#slide21">21</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-22">
+        <th><a href="#slide22">Weiteres</a></th>
+        <td><a href="#slide22">22</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-23">
+        <th><a href="#slide23">Thank you!</a></th>
+        <td><a href="#slide23">23</a></td>
+      </tr>
+      
+      
+    </table>
+  </div>
+  
+  <div id="help" class="sidebar hidden">
+    <h2>Help</h2>
+    <table>
+      <caption>Help</caption>
+      <tr>
+        <th>Table of Contents</th>
+        <td>t</td>
+      </tr>
+      <tr>
+        <th>Exposé</th>
+        <td>ESC</td>
+      </tr>
+      <tr>
+        <th>Full screen slides</th>
+        <td>e</td>
+      </tr>
+      <tr>
+        <th>Presenter View</th>
+        <td>p</td>
+      </tr>
+      <tr>
+        <th>Source Files</th>
+        <td>s</td>
+      </tr>
+      <tr>
+        <th>Slide Numbers</th>
+        <td>n</td>
+      </tr>
+      <tr>
+        <th>Toggle screen blanking</th>
+        <td>b</td>
+      </tr>
+      <tr>
+        <th>Show/hide slide context</th>
+        <td>c</td>
+      </tr>
+      <tr>
+        <th>Notes</th>
+        <td>2</td>
+      </tr>
+      <tr>
+        <th>Help</th>
+        <td>h</td>
+      </tr>
+    </table>
+  </div>
+  <script>main()</script>
+</body>
+</html>
