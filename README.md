@@ -14,5 +14,9 @@ March 26, 2014
 
 
 ### #9 Saltstack
-Jonas Reinsch ([@paepke_net](https://twitter.com/paepke_net))
+Tobias Paepke ([@paepke_net](https://twitter.com/paepke_net))
 May 28, 2014
+
+### #11 Saltstack
+Sebastian Sebald ([@sebald](https://twitter.com/sebald))
+July 30, 2014
