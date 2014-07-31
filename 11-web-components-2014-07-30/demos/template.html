@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Template Demo</title>
+
+	<template id="mytemplate">
+		<img src="avatar.png">
+		<div class="name"></div>
+	</template>
+
+	<style type="text/css">
+		body {
+			margin-top: 150px;
+			text-align: center;
+		}
+	</style>
+</head>
+<body>
+
+
+	<script type="text/javascript">
+	;(function () {
+		var tpl = document.querySelector('#mytemplate');
+		tpl.content.querySelector('img').src = '../assets/avatar.gif';
+		tpl.content.querySelector('.name').innerHTML = 'Obama approves this!';
+		document.body.appendChild(tpl.content.cloneNode(true));
+	})();
+	</script>
+</body>
+</html>

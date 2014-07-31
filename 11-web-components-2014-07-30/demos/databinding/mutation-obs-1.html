@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Mutation Observer #1</title>
+</head>
+<body>
+	<ol contenteditable oninput="">
+		<li>Press enter and look at the console</li>
+	</ol>
+
+	<script>
+		// Source: http://jsbin.com/xazok/1/edit
+		var MutationObserver = window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver;
+		var list = document.querySelector('ol');
+
+		var observer = new MutationObserver(function(mutations) {
+			mutations.forEach(function(mutation) {
+				if (mutation.type === 'childList') {
+					var list_values = [].slice.call(list.children)
+						.map( function(node) { return node.innerHTML; })
+						.filter( function(s) {
+							if (s === '<br>') {
+								return false;
+							}
+							else {
+								return true;
+							}
+						});
+					console.log(list_values);
+				}
+			});
+		});
+
+		observer.observe(list, {
+			attributes: true,
+			childList: true,
+			characterData: true
+		});
+	</script>
+</body>
+</html>

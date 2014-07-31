@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Notifications</title>
+</head>
+<body>
+	<input type="number" onchange="updateNumber(event)" value="2">
+
+	<script>
+		var model = {},
+			_b = 2;
+
+		// Define new Porperty
+		Object.defineProperty(model, 'b', {
+		    get: function () {
+		        return _b;
+		    },
+		    set: function (b) {
+
+		    	// Notify
+		        Object.getNotifier(this).notify({
+		            type: 'update',
+		            name: 'b',
+		            oldValue: _b
+		        });
+		        console.log('set', b);
+
+		        _b = b;
+		    }
+		});
+
+		// Observe
+		function observer ( changes ) {
+		    changes.forEach(function (change, i) {
+		        console.log(change);
+		    })
+		}
+		Object.observe(model, observer);
+
+		function updateNumber ( ev ) {
+			model.b = parseInt(ev.target.value);
+		}
+	</script>
+</body>
+</html>

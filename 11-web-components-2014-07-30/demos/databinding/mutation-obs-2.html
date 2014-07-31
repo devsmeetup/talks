@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Mutation Observer #2</title>
+</head>
+<body>
+
+	<div id="text" contentEditable>
+		Type something in here and look at the console.
+	</div>
+
+	<script>
+		// Source: http://jsbin.com/cogid/1/edit
+		var text = document.querySelector("#text");
+		var observer = new MutationObserver(function(mutations) {
+			mutations.forEach(function(mutation) {
+				var entry = {
+					mutation: mutation,
+					el: mutation.target,
+					value: mutation.target.textContent,
+					oldValue: mutation.oldValue
+				};
+				console.log("Mutation:", entry);
+			});
+		});
+
+		observer.observe(text, {
+			attributes: true,
+			childList: true,
+			characterData: true,
+			characterDataOldValue: true,
+			subtree: true
+		});
+	</script>
+</body>
+</html>

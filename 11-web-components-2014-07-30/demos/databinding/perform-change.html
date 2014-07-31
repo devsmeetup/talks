@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Perform Change</title>
+</head>
+<body>
+	There is some <code>thingy</code> in the console!
+	<script>
+		function Thingy(a, b, c) {
+		  this.a = a;
+		  this.b = b;
+		}
+
+		Thingy.MULTIPLY = 'multiply';
+		Thingy.INCREMENT = 'increment';
+		Thingy.INCREMENT_AND_MULTIPLY = 'incrementAndMultiply';
+
+
+		Thingy.prototype = {
+		  increment: function(amount) {
+		    var notifier = Object.getNotifier(this);
+
+		    // Tell the system that a collection of work comprises
+		    // a given changeType. e.g
+		    // notifier.performChange('foo', performFooChangeFn);
+		    // notifier.notify('foo', 'fooChangeRecord');
+		    notifier.performChange(Thingy.INCREMENT, function() {
+		      this.a += amount;
+		      this.b += amount;
+		    }, this);
+
+		    notifier.notify({
+		      object: this,
+		      type: Thingy.INCREMENT,
+		      incremented: amount
+		    });
+		  },
+
+		  multiply: function(amount) {
+		    var notifier = Object.getNotifier(this);
+
+		    notifier.performChange(Thingy.MULTIPLY, function() {
+		      this.a *= amount;
+		      this.b *= amount;
+		    }, this);
+
+		    notifier.notify({
+		      object: this,
+		      type: Thingy.MULTIPLY,
+		      multiplied: amount
+		    });
+		  },
+
+		  incrementAndMultiply: function(incAmount, multAmount) {
+		    var notifier = Object.getNotifier(this);
+
+		    notifier.performChange(Thingy.INCREMENT_AND_MULTIPLY, function() {
+		      this.increment(incAmount);
+		      this.multiply(multAmount);
+		    }, this);
+
+		    notifier.notify({
+		      object: this,
+		      type: Thingy.INCREMENT_AND_MULTIPLY,
+		      incremented: incAmount,
+		      multiplied: multAmount
+		    });
+		  }
+		}
+
+		var observer = {
+		    records: undefined,
+		    callbackCount: 0,
+		    reset: function() {
+		      this.records = undefined;
+		      this.callbackCount = 0;
+		    },
+		};
+
+		observer.callback = function(r){
+			console.log('Observer', r);
+		}
+
+
+		Thingy.observe = function(thingy, callback) {
+		  // Object.observe(obj, callback, optAcceptList)
+		  Object.observe(thingy, callback, [Thingy.INCREMENT,
+		                                    Thingy.MULTIPLY,
+		                                    Thingy.INCREMENT_AND_MULTIPLY,
+		                                    'update']);
+		}
+
+		Thingy.unobserve = function(thingy, callback) {
+		  Object.unobserve(thingy);
+		}
+
+		var thingy = new Thingy(2, 4);
+		Thingy.observe(thingy, observer.callback);
+	</script>
+</body>
+</html>

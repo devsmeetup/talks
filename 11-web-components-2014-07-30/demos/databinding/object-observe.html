@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>O.o</title>
+</head>
+<body>
+	<h1>Thingy</h1>
+	<ul id="person">
+
+	</ul>
+
+	<button onclick="addProperty()">ADD</button>
+	<button onclick="removeProperty()">REMOVE</button>
+	<button onclick="updateProperty()">UPDATE</button>
+
+	<script>
+		var personModel = {
+			name: 'Sebastian',
+			surname: 'Sebald'
+		};
+
+		function observer(changes){
+			changes.forEach(function(change, i){
+				console.log(change);
+			})
+			updateView();
+		};
+
+		Object.observe(personModel, observer);
+
+
+		// METHODS
+
+		var todoElement = document.getElementById('person');
+		function updateView () {
+			var content = '';
+			for( var property in personModel ) {
+				content += '<li>' + '<strong>' + property + ':</strong> ' +
+					personModel[property] + '</li>';
+			}
+			todoElement.innerHTML = content;
+		}
+		updateView();
+
+		function addProperty () {
+			personModel.twitter = '@sebastiansebald';
+		}
+
+		function removeProperty () {
+			delete personModel.twitter;
+		}
+
+		function updateProperty () {
+			personModel.name = 'Devsmeetup';
+			personModel.twitter = '@devsmeetup';
+			delete personModel.surname;
+		}
+
+		// note that no changes were reported
+	</script>
+</body>
+</html>

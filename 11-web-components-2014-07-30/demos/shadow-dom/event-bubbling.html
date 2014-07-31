@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>ShadowDOM Events</title>
+	<style>
+		div {
+			box-sizing: border-box;
+		}
+
+		input,
+		::shadow input {
+			font-size: 2em;
+		}
+
+		#console {
+			font-size: 1.5em;
+			font-family: monospace;
+		}
+	</style>
+</head>
+<body>
+
+	<div id="left" style="float:left;width:50%;padding-right:25px;">
+		<input id="normal-text" type="text" value="I'm normal text">
+
+		<div id="host">
+			<input id="distributed-text" type="text" value="I'm distributed text">
+		</div>
+	</div>
+	<div style="float:left;width:50%;padding-left:25px;">
+		<button onclick="clearContent()">Clear</button>
+		<p id="console"></p>
+	</div>
+
+	<template>
+		<div>
+			<content></content>
+		</div>
+		<div>
+			<input id="shadow-text" type="text" value="I'm shadow text">
+		</div>
+	</template>
+
+	<script>
+		var host = document.querySelector('#host');
+		var root = host.createShadowRoot();
+		var template = document.querySelector('template');
+		root.appendChild(document.importNode(template.content, true));
+
+		var consoleElement = document.getElementById('console');
+		document.getElementById('left').addEventListener('input', function(e) {
+			consoleElement.innerHTML = consoleElement.innerHTML + '<br>> <span style="color:red;">' + e.target.id + '</span> text changed!';
+		});
+		document.getElementById('left').addEventListener('click', function(e) {
+			consoleElement.innerHTML = consoleElement.innerHTML + '<br>> <span style="color:red;">' + e.target.id + '</span> text clicked!';
+		});
+
+		function clearContent() {
+			while (consoleElement.hasChildNodes()) {
+				consoleElement.removeChild(consoleElement.firstChild);
+			}
+		}
+	</script>
+</body>
+</html>

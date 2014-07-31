@@ -1,0 +1,56 @@
+<script src="audio_controller.js"></script>
+<style>
+  button:hover {
+    font-family: Courier, san-serif;
+    font-size: 60px;
+    font-weight: bold;
+    line-height: 1;
+    text-transform: uppercase;
+    border-radius: 50%;
+    border: 10px solid black;
+    width: 300px; /* default width and height */
+    height: 300px;
+    color: #222;
+    text-shadow: 0px 2px 3px #555;
+    background-color: #444;
+    -webkit-transition-property: border, background, font-size, color;
+    -webkit-transition-duration: 400ms;
+    -webkit-transition-timing-function: ease-in-out;
+    cursor: pointer;
+    background-image: -webkit-radial-gradient(50% 50%, circle closest-side, transparent 50%, rgba(0, 0, 0, 0.5) 100%);
+    -webkit-filter: drop-shadow(8px 10px 10px rgba(0,0,0,0.5));
+    white-space: initial;
+
+    border: 25px solid black;
+    -webkit-transform: rotateZ(-15deg);
+    background-color: red;
+    color: white;
+  }
+  button:hover:after {
+    content: '?';
+  }
+  button:active {
+    position: relative;
+    top: 5px;
+    left: 5px;
+  }
+</style>
+<script>
+// Register element
+var MegaButton = document.registerElement('mega-button', {
+  prototype: Object.create(HTMLButtonElement.prototype),
+
+});
+
+var audioController_ = new AudioController();
+// Load in moo 
+audioController_.load('moo.mp3', function(){
+
+});
+
+var megabtn = document.querySelector('button');
+megabtn.addEventListener('click', function(){
+    audioController_.stop();
+    audioController_.play();
+});
+</script>

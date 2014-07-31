@@ -1,0 +1,1028 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>web components</title>
+		<meta name="author" content="Sebastian Sebald">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link href='http://fonts.googleapis.com/css?family=Lato:100,400,300,600,700' rel='stylesheet' type='text/css'>
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="css/solarized_light.css">
+
+		<!-- Polymer -->
+		<script src="components/platform/platform.js"></script>
+		<link rel="import" href="components/polymer/layout.html">
+		<link rel="import" href="components/paper-tabs/paper-tabs.html">
+		<style shim-shadowdom>
+			paper-tabs, core-toolbar {
+			  background-color: #00bcd4;
+			  color: #fff;
+			  box-shadow: 0px 3px 2px rgba(0, 0, 0, 0.2);
+			}
+
+			core-toolbar paper-tabs {
+			  box-shadow: none;
+			}
+
+			paper-tabs[noink][nobar] paper-tab.core-selected {
+			  color: #ffff8d;
+			}
+
+			paper-tabs.transparent-teal {
+			  background-color: transparent;
+			  color: #00bcd4;
+			  box-shadow: none;
+			}
+
+			paper-tabs.transparent-teal::shadow #selectionBar {
+			  background-color: #00bcd4;
+			}
+
+			paper-tabs.transparent-teal paper-tab::shadow #ink {
+			  color: #00bcd4;
+			}
+
+			h3 {
+			  font-size: 16px;
+			  font-weight: 400;
+			}
+
+			#host::shadow span {
+			  color: red;
+			}
+
+			video.pinky /deep/ input[type="range"] {
+			  background: hotpink;
+			}
+
+			</style>
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+
+
+				<!-- =============================================
+
+										INTRO
+
+				============================================== -->
+
+
+				<section data-background="assets/landscape.jpg">
+					<div style="color:#fff;">
+						<img src="assets/wc-logo.svg" width="50%">
+						<h1>
+							Web Components
+						</h1>
+					</div>
+				</section>
+
+				<section data-background="#2157b3">
+					<h2 class="ww">
+						<small>At the start of the web ...</small>
+						Things were much simpler
+					</h2>
+				</section>
+
+				<section data-background="assets/first-website.png"></section>
+
+				<section data-background="#2157b3">
+					<h2 class="ww">
+						Pages were simpler, too
+					</h2>
+				</section>
+
+				<section data-background="assets/nytimes.jpg"></section>
+				<section data-background="assets/nytimes-source.png" data-background-size="100%"></section>
+
+				<section data-background="#2157b3">
+					<h2 class="ww">
+						But today...
+					</h2>
+				</section>
+
+				<section data-background="assets/gmail.png" data-background-size="100%"></section>
+
+				<section data-background="assets/buff.gif"></section>
+
+				<section data-background="#9e3827">
+					<h2 class="ww">
+						Our HTML is messed up
+					</h2>
+				</section>
+
+				<section data-background="assets/sad.gif"></section>
+
+				<section data-background="#2157b3">
+					<h2 class="ww">
+						What happend?
+					</h2>
+				</section>
+
+				<section>
+					<code>&lt;select></code>
+
+					<pre>
+						<code class="xml" data-trim>
+<select>
+	<option>Small</option>
+	<option>Medium</option>
+	<option>Large</option>
+</select>
+						</code>
+
+						<select>
+							<option>Small</option>
+							<option>Medium</option>
+							<option>Large</option>
+						</select>
+					</pre>
+				</section>
+
+
+				<section>
+					<code>&lt;video></code>
+
+					<pre>
+						<code data-trim>
+<video src="assets/bunny.webm" controls></video>
+						</code>
+					</pre>
+						<video src="assets/bunny.webm" controls style="display: block; margin: 0 auto;"></video>
+				</section>
+
+				<section>
+					<code>&lt;tabs></code>
+
+					<pre>
+						<code data-trim>
+<tabs selected="0" noink nobar role="tablist">
+	<tab role="tab" class="core-selected" active>ONE</tab>
+	<tab role="tab">TWO</tab>
+	<tab role="tab">THREE</tab>
+</tabs>
+						</code>
+					</pre>
+
+					<paper-tabs selected="0" noink nobar role="tablist">
+						<paper-tab role="tab" class="core-selected" active="">ONE</paper-tab>
+						<paper-tab role="tab" class="">TWO</paper-tab>
+						<paper-tab role="tab">THREE</paper-tab>
+					</paper-tabs>
+				</section>
+
+				<section data-background="#9e3827">
+					<h2 class="ww">
+						Er, wait a minute!
+					</h2>
+				</section>
+
+				<section data-background="assets/you-got-me.gif"></section>
+
+				<section data-background="#2157b3">
+					<h2 class="ww">
+						<small>What if ...</small>
+						We could to do this?
+					</h2>
+				</section>
+
+				<section data-background="#2157b3">
+					<h2 class="ww">
+						<small>What if ...</small>
+						We had the power browser makers have?
+					</h2>
+				</section>
+
+				<section data-background="assets/omsj.gif"></section>
+
+
+
+
+
+
+
+				<!-- =============================================
+
+								WEB COMPONENTS
+
+				============================================== -->
+
+				<section data-background="assets/wc-logo.svg"></section>
+
+				<section class="txt-left">
+					<h2>Defining Web Components</h2>
+					<ol class="enlarge">
+						<li>Templating</li>
+						<li>Encapsulation</li>
+						<li>HTML Extension</li>
+						<li>Packaging</li>
+					</ol>
+				</section>
+
+
+				<!-- =============================================
+
+								TEMPLATING
+
+				============================================== -->
+
+				<section data-background="#2157b3">
+					<h2 class="ww">
+						Templating
+					</h2>
+				</section>
+
+				<section>
+					<h2>Templating w/ Handlebars</h2>
+					<br>
+
+					<pre class="full"><code data-trim>
+&lt;script id="mytemplate" type="text/x-handlebars-template">
+  &lt;img src="avatar.png">
+  <div class="name"></div>
+&lt;/script>
+					</code></pre>
+					<br>
+					<ul class="txt-left pm">
+						<li class="bad">Encourages run-time string parsing via <code>.innerHTML</code></li>
+						<li class="bad">May include user-supplied data → XSS attacks</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Vanilla Templating</h2>
+					<br>
+					<pre class="full"><code data-trim>
+<div id="mytemplate" hidden>
+  &lt;img src="avatar.png">
+  <div class="name"></div>
+</div>
+					</code></pre>
+					<br>
+					<ul class="txt-left pm">
+						<li class="good">We're working directly w/ DOM</li>
+						<li class="bad">Resources are still loaded <span class="light">(like the &lt;img>)</span></li>
+						<li class="bad">Style and theming is hard <span class="light">(scope CSS to #mytemplate)</span></li>
+						<li class="bad">Satic, not composed URLs</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Tomorrows Templating</h2>
+					<br>
+					<p class="txt-left"><code>&lt;template></code> contains inert markup!</p>
+					<br>
+					<pre class="full"><code data-trim>
+<template id="mytemplate">
+  &lt;img src="avatar.png">
+  <div class="name"></div>
+</template>
+					</code></pre>
+					<br>
+					<ul class="txt-left pm">
+						<li class="good">We're working directly w/ DOM</li>
+						<li class="good">Parsed not rendered</li>
+					</ul>
+				</section>
+				<section>
+					<pre class="full"><code data-trim>
+var tpl = document.querySelector('#mytemplate');
+tpl.content.querySelector('img').src = 'assets/avatar.gif';
+document.body.appendChild(tpl.content.cloneNode(true));
+					</code></pre>
+					<p><code>.content</code> provides access to the <code>&lt;template></code>'s ... content</p>
+					<a class="btn-demo" href="demos/template.html" target="_blank">Run!</a>
+				</section>
+
+				<section>
+					<ul class="pm">
+						<li class="check">Chrome</li>
+						<li class="check">Firefox</li>
+						<li class="empty">Internet Explorer</li>
+						<li class="empty">Safari</li>
+						<li class="check">Opera</li>
+					</ul>
+				</section>
+
+
+				<!-- =============================================
+
+								ENCAPSULATION
+
+				============================================== -->
+
+				<section data-background="#2157b3">
+					<h2 class="ww">
+						Encapsulation
+					</h2>
+				</section>
+
+				<section>
+					<p>Seperate code <u>you</u> wrote from code that will <u>consume</u> it</p>
+					<br>
+					<ul class="pm">
+						<li class="bad">We don't have it on the web</li>
+						<li class="meh">But what about <code>&lt;iframe></code></li>
+					</ul>
+				</section>
+
+				<section data-background="assets/dog.gif"></section>
+
+				<section>
+					<ul class="pm">
+						<li class="bad"><code>&lt;iframe></code> is heave and restrictive</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Shdow DOM</h2>
+					<br>
+					<ul class="txt-left">
+						<li>Provides style and markupd encapsulation</li>
+						<li>Same technology used by browser maker to implement tags like <code>&lt;video></code> or <code>&lt;select></code></li>
+					</ul>
+				</section>
+
+				<section>
+					<img src="assets/shadow-rendering.svg">
+				</section>
+
+				<section>
+					<code>element.createShadowRoot()</code>
+				</section>
+
+				<section>
+					<pre><code>
+&lt;h2>Hello World!&lt;/h2>
+&lt;script>
+  var host = document.querySelector('#sr-one');
+  var root = host.createShadowRoot();
+  root.innerHTML = '&lt;em>I am inside your div!&lt;/em>';
+&lt;/script>
+					</code></pre>
+					<a class="btn-demo" href="#" onclick="event.preventDefault(); firstShadowRootRun();">Run!</a>
+					<br>
+					<br>
+					<div class="dashed">
+						<h2 id="sr-one">Hello World!</h2>
+					</div>
+				</section>
+
+				<section>
+					<pre><code class="xml">
+&lt;span>World&lt;/span>
+&lt;script>
+  var text = document.querySelector('span');
+  var root = text.createShadowRoot();
+  root.innerHTML = 'Hello &lt;u>&lt;content>&lt;/content>&lt;/u>!';
+&lt;/script>
+					</code></pre>
+					<a class="btn-demo" href="#" onclick="event.preventDefault(); insertContentShadowRoot();">Run!</a>
+					<br>
+					<br>
+					<div class="dashed">
+						<span id="sr-text">World</span>
+					</div>
+				</section>
+
+				<section>
+					<h2>Style Encapsulation</h2>
+					<pre><code>
+&lt;template id="shadow-header-tpl">
+  &lt;style>
+    h3 { color: white; background: tomato; }
+  &lt;/style>
+  &lt;h3>Shadow H3 header&lt;/h3>
+&lt;/template>
+					</code></pre>
+					<pre><code>
+&lt;script>
+  function shadowHeaderRun () {
+    var tpl = document.querySelector('#shadow-header-tpl');
+    var host = document.querySelector('#sr-two');
+    var root = host.createShadowRoot();
+    root.appendChild(tpl.content.cloneNode(true));
+  }
+&lt;/script>
+					</code></pre>
+				</section>
+
+				<section>
+					<div class="dashed">
+						<h3>I am a h3!</h3>
+						<h3 id="sr-two">I am another h3!</h3>
+						<h3>I am also a h3!</h3>
+					</div>
+					<a class="btn-demo" href="#" onclick="event.preventDefault(); shadowHeaderRun();">Run!</a>
+				</section>
+
+				<section>
+					<h2>:host</h2>
+					<pre><code class="xml">
+&lt;button>My Button&lt;/button>
+&lt;script>
+var button = document.querySelector('button');
+var root = button.createShadowRoot();
+root.innerHTML = '&lt;style>' +
+    ':host { text-transform: uppercase; }' +
+    '&lt;/style>' +
+    '&lt;content>&lt;/content>';
+&lt;/script>
+					</code></pre>
+					<div class="dashed">
+						<button class="btn">My Button</button>
+					</div>
+				</section>
+
+				<section>
+					<h2>:host</h2>
+					<pre><code>
+<style>
+:host {
+  opacity: 0.4;
+  transition: opacity 420ms ease-in-out;
+}
+:host(:hover) {
+  opacity: 1;
+}
+:host(:active) {
+  color: hotpink;
+}
+</style>
+					</code></pre>
+				</section>
+
+				<section>
+					<h2>::shadow</h2>
+					<pre><code>
+&lt;style>
+  #host::shadow span {
+    color: red;
+  }
+&lt;/style>
+
+&lt;div id="host">
+  &lt;span>Light DOM&lt;/span>
+&lt;/div>
+
+&lt;script>
+  var host = document.querySelector('#host');
+  var root = host.createShadowRoot();
+  root.innerHTML = "&lt;span>Shadow DOM&lt;/span>" +
+                   "&lt;content>&lt;/content>";
+&lt;/script>
+					</code></pre>
+					<div class="dashed">
+						<div id="host">
+							<span>Light DOM</span>
+						</div>
+					</div>
+				</section>
+
+				<section>
+					<h2>/deep/</h2>
+					<pre><code>
+  paper-tabs /deep/ paper-tab {
+
+  }
+					</code></pre>
+					Apply styles to nested ShadowDOMs
+				</section>
+
+				<section>
+					<pre><code>
+video /deep/ input[type="range"] {
+  background: hotpink;
+}
+					</code></pre>
+					<video class="pinky" controls></video>
+				</section>
+
+				<section>
+					<h2>::content</h2>
+					<pre><code class="xml">
+&lt;style>
+  h3 { color: red; }
+  content[select="h3"]::content > h3 {
+    color: green;
+  }
+  ::content article p {
+    text-decoration: underline;
+  }
+&lt;/style>
+</script>
+					</code></pre>
+				</section>
+
+				<section>
+					<div class="dashed">
+						<div id="content-styling">
+						  <h3>Light DOM</h3>
+						  <article>
+						    <div>I'm not underlined</div>
+						    <p>I'm underlined in Shadow DOM!</p>
+						  </article>
+						</div>
+					</div>
+				</section>
+
+				<section>
+					<h2>Some words on JavaScript</h2>
+					<a class="btn-demo" href="demos/shadow-dom/event-bubbling.html" target="_blank">Run!</a><br>
+				</section>
+
+				<section>
+					<ul class="pm">
+						<li class="check">Chrome</li>
+						<li class="empty">Firefox (wip)</li>
+						<li class="empty">Internet Explorer</li>
+						<li class="empty">Safari (removed)</li>
+						<li class="check">Opera</li>
+					</ul>
+				</section>
+
+
+				<!-- =============================================
+
+								CUSTOM ELEMENT
+
+				============================================== -->
+
+				<section data-background="#2157b3">
+					<h2 class="ww">
+						Custom Elements
+					</h2>
+				</section>
+
+				<section>
+					<h2>Templates + ShadowDOM</h2>
+				</section>
+
+				<section>
+					<code>document.registerElement()</code>
+				</section>
+
+				<section class="txt-left">
+					Create with JavaScript:
+					<pre><code>
+var MyElement = document.registerElement('my-element');
+					</code></pre>
+					<br>
+					Use it:
+					<pre><code class="xml">
+<my-element></my-element>
+					</code></pre>
+				</section>
+
+				<section>
+					<h2>Extend Elements</h2>
+					<pre><code>
+var MegaButton = document.registerElement('mega-button', {
+  prototype: Object.create(HTMLButtonElement.prototype)
+});
+					</code></pre>
+					<pre><code>
+&lt;button is="mega-button">
+					</code></pre>
+					<a class="btn-demo" href="demos/megabutton/megabutton.html" target="_blank">Run!</a>
+				</section>
+
+				<section>
+					<table style="min-width: 1000px;">
+						<tr style="line-height: 70px;">
+							<td width="50%">
+								Visual Elements
+							</td>
+							<td width="50%">
+								Non-visual Elements
+							</td>
+						</tr>
+						<tr style="line-height: 70px;">
+							<td width="50%">
+								<input type="text" placeholder="<input type='text'>">
+							</td>
+							<td width="50%">
+								<code>&lt;script></code>
+							</td>
+						</tr>
+						<tr style="line-height: 70px;">
+							<td width="50%">
+								<progress></progress>
+							</td>
+							<td width="50%">
+								<code>&lt;datalist></code>
+							</td>
+						</tr>
+						<tr style="line-height: 70px;">
+							<td width="50%">
+								<button>Click me</button>
+							</td>
+							<td width="50%">
+								<code>&lt;link></code>
+							</td>
+						</tr>
+						<tr style="line-height: 70px;">
+							<td width="50%">
+								<video width="400px" height="50px" controls=""></video>
+							</td>
+							<td width="50%">
+								<code>&lt;source></code>
+							</td>
+						</tr>
+					</table>
+				</section>
+
+				<section>
+					<ul class="pm">
+						<li class="check">Chrome</li>
+						<li class="empty">Firefox (wip)</li>
+						<li class="empty">Internet Explorer</li>
+						<li class="empty">Safari</li>
+						<li class="check">Opera</li>
+					</ul>
+				</section>
+
+
+				<!-- =============================================
+
+								PACKAGING
+
+				============================================== -->
+
+				<section data-background="#2157b3">
+					<h2 class="ww">
+						Packaging
+					</h2>
+				</section>
+
+				<section>
+					<code>&lt;link rel="import" href="my-import.html"></code>
+				</section>
+
+				<section class="txt-left">
+					Load all the things:
+					<pre><code>
+&lt;link rel="stylesheet" type="text/css" href="my-widget.css" />
+
+&lt;script src="jquery.js">&lt;/script>
+&lt;script src="my-widget.js">&lt;/script>
+					</code></pre>
+
+					Use it:
+					<pre><code class="javascript">
+$(div).find('[data-my-widget]').myWidget();
+					</code></pre>
+				</section>
+
+				<section>
+					<code>my-widget.html</code>
+					<pre><code>
+&lt;template>
+  &lt;div>My Widget&lt;/div>
+&lt;/template>
+&lt;script src="lib.js">&lt;/script>
+&lt;script>
+  ...
+&lt;/script>
+					</code></pre>
+				</section>
+
+				<section class="txt-left">
+					Import the file:
+					<pre><code>
+&lt;link rel="stylesheet" type="text/css" href="my-widget.css" />
+					</code></pre>
+
+					Use it:
+					<pre><code class="xml">
+&lt;my-widget>&lt;/my-widget>
+					</code></pre>
+				</section>
+
+				<section>
+					<h2><code>&lt;my-tabs></code></h2>
+					<pre><code>
+&lt;link rel="import" href="my-tabs.html">
+					</code></pre>
+					<pre><code>
+<my-tabs selected="0">
+  <span>One</span>
+  <span>Two</span>
+  <span>Three</span>
+  <span>Four</span>
+  <span>Five</span>
+</my-tabs>
+					</code></pre>
+					<a class="btn-demo" href="demos/my-tabs/demo.html" target="_blank">Run!</a>
+				</section>
+
+				<section>
+					<a href="demos/video-camera-element/index.html" target="_blank"><code>&lt;video-camera></code></a>
+					<br><br>
+					<a href="http://polymerlabs.github.io/google-map/components/google-map/demo.html" target="_blank"><code>&lt;google-map></code></a>
+					<br><br>
+					<a href="http://geelen.github.io/x-gif/demos/stoppable.html" target="_blank"><code>&lt;x-gif></code></a>
+				</section>
+
+				<section>
+					<ul class="pm">
+						<li class="check">Chrome</li>
+						<li class="empty">Firefox (wip)</li>
+						<li class="empty">Internet Explorer</li>
+						<li class="empty">Safari</li>
+						<li class="check">Opera</li>
+					</ul>
+				</section>
+
+				<!-- =============================================
+
+								OUTLOOK
+
+				============================================== -->
+
+				<section data-background="#2157b3">
+					<h2 class="ww">
+						We're not <u>quite</u> there yet!
+					</h2>
+				</section>
+
+				<section>
+					<h2><a href="http://jonrimmer.github.io/are-we-componentized-yet/" target="_blank">Are we componentized yet?</a></h2>
+				</section>
+
+				<section data-background="#2157b3">
+					<h2 class="ww">
+						<small>What about</small>
+						Two-Way-Databinding!?
+					</h2>
+				</section>
+
+				<section>
+					<code>Mutation Observer</code>
+				</section>
+
+				<section>
+					<h2>Detect changes in the DOM</h2>
+					<a class="btn-demo" href="demos/databinding/mutation-obs-1.html" target="_blank">Run!</a><br>
+					<a class="btn-demo" href="demos/databinding/mutation-obs-2.html" target="_blank">Run!</a>
+				</section>
+
+				<section>
+					<code>O.o</code>
+				</section>
+
+				<section>
+					<code>Object.observe</code>
+				</section>
+
+				<section data-background="assets/grinning.gif"></section>
+
+				<section>
+					<h2>Observe changes in POJOs</h2>
+					<a class="btn-demo" href="demos/databinding/object-observe.html" target="_blank">Run!</a><br>
+					<a class="btn-demo" href="demos/databinding/notification.html" target="_blank">Run!</a><br>
+					<a class="btn-demo" href="demos/databinding/perform-change.html" target="_blank">Run!</a><br>
+				</section>
+
+				<section data-background="#2157b3">
+					<h2 class="ww">
+						I wanna use it now!
+					</h2>
+				</section>
+
+				<section>
+					<img src="assets/polymer.svg">
+				</section>
+
+				<section>
+					<p>Web Components polyfill for all <u>modern</u> browsers</p>
+				</section>
+
+				<section>
+					<h2>Declarative Registration</h2>
+					<pre><code>
+&lt;polymer-element name="my-element" noscript>
+  &lt;template>
+    &lt;style>h2 { color: orange; }&lt;/style>
+    &lt;h2>Hello from my-element!&lt;/h2>
+  &lt;/template>
+&lt;/polymer-element>
+					</code></pre>
+					<pre><code class="xml">
+&lt;my-element>&lt;/my-element>
+					</code></pre>
+				</section>
+
+				<section>
+					<a href="components/core-selector/demo.html" target="_blank"><code>&lt;core-selector></code></a>
+					<br><br>
+					<a href="components/core-collapse/demo.html" target="_blank"><code>&lt;core-collapse></code></a>
+					<br><br>
+					<a href="components/core-tooltip/demo.html" target="_blank"><code>&lt;core-tooltip></code></a>
+				</section>
+
+				<section data-background="#2157b3">
+					<h2 class="ww">
+						Still not convinced!?
+					</h2>
+				</section>
+
+				<section>
+					<h2>Declarative Layout System</h2>
+				</section>
+
+				<section data-background="assets/thumbs-aloft.gif"></section>
+
+				<section>
+					<pre><div class="xml enlarge">
+<span class="tag">&lt;<span class="title">div</span> <span class="attribute">layout</span> <span class="attribute" onclick="event.preventDefault(); toggleHorizontal(event);">horizontal</span>&gt;</span>
+  <span class="tag">&lt;<span class="title">div</span>&gt;</span>Header<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+  <span class="tag">&lt;<span class="title">div</span> <span class="attribute" onclick="event.preventDefault(); toggleFlex(event);">flex</span>&gt;</span>Body<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+  <span class="tag">&lt;<span class="title">div</span>&gt;</span>Footer<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+					</div></pre>
+					<div class="dashed">
+						<div horizontal layout id="flexlayout">
+							<div>Header</div>
+							<div flex>Body</div>
+							<div>Footer</div>
+						</div>
+					</div>
+				</section>
+
+				<section data-background="#2157b3">
+					<h2 class="ww">
+						Responsive Design
+					</h2>
+				</section>
+
+				<section data-background="assets/material.svg"></section>
+
+				<section data-background="assets/motion.gif"></section>
+
+				<section>
+					<a href="assets/designer.mp4" target="_blank">
+						<img src="assets/designer_screenshot.png">
+					</a>
+				</section>
+
+				<section data-background="assets/exat.gif"></section>
+
+				<section class="txt-left">
+					<h2>&lt;thank-you></h2>
+				</section>
+
+				<section>
+					<h2>Resources</h2>
+					<ul class="resource">
+						<li><a href="http://webcomponents.org/presentations/componentize-the-web-back-to-the-browser-at-lxjs/">http://webcomponents.org/presentations/componentize-the-web-back-to-the-browser-at-lxjs/</a></li>
+						<li><a href="http://polymer-change.appspot.com/">http://polymer-change.appspot.com/</a></li>
+						<li><a href="http://www.polymer-project.org/">http://www.polymer-project.org/</a></li>
+						<li><a href="robdodson.me/webcomponents-revolution/">robdodson.me/webcomponents-revolution/</a></li>
+						<li><a href="http://addyosmani.com/blog/mutation-observers/">http://addyosmani.com/blog/mutation-observers/</a></li>
+						<li><a href="http://www.html5rocks.com/en/tutorials/es7/observe/">http://www.html5rocks.com/en/tutorials/es7/observe/</a></li>
+						<li><a href="http://robdodson.me/blog/2013/09/02/shadow-dom-javascript/">http://robdodson.me/blog/2013/09/02/shadow-dom-javascript/</a></li>
+					</ul>
+				</section>
+		</div>
+
+
+
+		<!--  ==================================================================== -->
+		<!--  ==================================================================== -->
+		<!--  ==================================================================== -->
+
+
+		<script src="js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+
+		<!-- =============================================
+
+							DEMOS
+
+		============================================== -->
+		<template id="shadow-header-tpl">
+			<style>
+				h3 { color: white; background: tomato; }
+			</style>
+			<h3>Shadow H3 header</h3>
+		</template>
+		<script type="text/javascript">
+			function firstShadowRootRun () {
+				var host = document.querySelector('#sr-one');
+				var root = host.createShadowRoot();
+				root.innerHTML = '<em>I am inside your div!</em>';
+			}
+
+			function insertContentShadowRoot () {
+				var text = document.querySelector('#sr-text');
+				var root = text.createShadowRoot();
+				root.innerHTML = 'Hello <u><content></content></u>!';
+			}
+
+			function shadowHeaderRun () {
+				var tpl = document.querySelector('#shadow-header-tpl');
+				var host = document.querySelector('#sr-two');
+				var root = host.createShadowRoot();
+				root.appendChild(tpl.content.cloneNode(true));
+			}
+
+			function demoForHost () {
+				var button = document.querySelector('.btn');
+				var root = button.createShadowRoot();
+				root.innerHTML = '<style>' +
+					':host { text-transform: uppercase; }' +
+					'</style>' +
+					'<content></content>';
+			}
+			demoForHost();
+
+			function shadowStyle () {
+				var host = document.querySelector('#host');
+				var root = host.createShadowRoot();
+				root.innerHTML = "<span>Shadow DOM</span>" +
+				               "<content></content>";
+			}
+			shadowStyle();
+
+			function contentStyle () {
+				var div = document.querySelector('#content-styling');
+				var root = div.createShadowRoot();
+				root.innerHTML = '\
+				    <style>\
+				      h3 { color: red; }\
+				      content[select="h3"]::content > h3 {\
+				        color: green;\
+				      }\
+				      ::content article p {\
+				        text-decoration: underline;\
+				      }\
+				    </style>\
+				    <h3>Shadow DOM</h3>\
+				    <content select="h3"></content>\
+				    <content select="article"></content>';
+			}
+			contentStyle();
+
+			var layoutElement = document.querySelector('#flexlayout'),
+				flexElement = document.querySelector('#flexlayout [flex]');
+			function toggleHorizontal ( ev ) {
+				if( layoutElement.hasAttribute('horizontal') ) {
+					layoutElement.removeAttribute('horizontal');
+					ev.target.innerHTML = 'vertical';
+				} else {
+					layoutElement.setAttribute('horizontal', 'true');
+					ev.target.innerHTML = 'horizontal';
+				}
+			}
+			function toggleFlex ( ev ) {
+				if( flexElement.hasAttribute('flex') ) {
+					flexElement.removeAttribute('flex');
+					ev.target.classList.add('inactive');
+				} else {
+					flexElement.setAttribute('flex', 'true');
+					ev.target.classList.remove('inactive');
+				}
+			}
+		</script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: false,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: 'none', // default/cube/page/concave/zoom/linear/fade/none
+				backgroundTransition: 'none',
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
