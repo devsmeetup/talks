@@ -18,5 +18,5 @@ Tobias Paepke ([@paepke_net](https://twitter.com/paepke_net))
 May 28, 2014
 
 ### #11 Saltstack
-Sebastian Sebald ([@sebald](https://twitter.com/sebald))
+Sebastian Sebald ([@sebastiansebald](https://twitter.com/sebastiansebald))
 July 30, 2014
