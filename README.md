@@ -17,6 +17,10 @@ March 26, 2014
 Tobias Paepke ([@paepke_net](https://twitter.com/paepke_net))
 May 28, 2014
 
-### #11 Saltstack
+### #11 Web Components
 Sebastian Sebald ([@sebastiansebald](https://twitter.com/sebastiansebald))
 July 30, 2014
+
+### #12 Thoughts on P2P Computing
+Holger Krekel ([@hpk42](https://twitter.com/hpk42))
+Sep 24, 2014
