@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Yet another autocomplete RxJS Example</title>
+
+  <script src="../node_modules/jquery/dist/jquery.js"></script>
+  <script src="../node_modules/rx/dist/rx.all.js"></script>
+  <script src="../node_modules/babel-core/browser.js"></script>
+  <script src="autocomplete.js" type="text/babel"></script>
+  <style>
+    .spinner {
+      background: url('ajax-loader.gif') no-repeat right center;
+    }
+  </style>
+</head>
+<body>
+  <h3>Yet another autocomplete RxJS Example</h3>
+
+  <input type="text" id="search" name="search" autocomplete="off"/>
+
+  <ul id="results"></ul>
+</body>
+</html>

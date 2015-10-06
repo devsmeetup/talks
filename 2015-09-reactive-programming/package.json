@@ -1,0 +1,21 @@
+{
+  "name": "reactive_programming_talk",
+  "version": "1.0.0",
+  "description": "Introduction to reactive programming",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sebald/reactive_programming_talk.git"
+  },
+  "author": "Sebastian Sebald <sebastian.sebald@gmail.com> (http://www.distractedbysquirrels.com)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sebald/reactive_programming_talk/issues"
+  },
+  "homepage": "https://github.com/sebald/reactive_programming_talk#readme",
+  "dependencies": {
+    "babel-core": "^5.8.25",
+    "jquery": "^2.1.4",
+    "rx": "^4.0.0"
+  }
+}

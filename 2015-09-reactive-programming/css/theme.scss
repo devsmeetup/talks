@@ -1,0 +1,141 @@
+@import 'bourbon/bourbon';
+
+// Colors
+$white: #fff;
+$black: #252526;
+
+$red: #d64541;
+$red--light: #e48482;
+
+$brand: #3c95a2;
+$brand--alt: #6b63a2;
+$brand--alt-light: #b1adce;
+
+// Globals
+$font-size: 34;
+
+// Animation
+@include keyframes (title-background) {
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+
+
+// Styles
+html,
+body {
+    background: $white;
+
+    color: $black;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 300;
+}
+
+
+html[class*="page-"] body {
+    color: $white !important;
+    @include animation(title-background 15s ease infinite);
+
+    a {
+        color: $white !important;
+        text-decoration: underline;
+    }
+
+    h1, h2, code {
+        color: $white !important;
+    }
+}
+
+html.page-title body {
+    background: linear-gradient(270deg, $brand, $brand--alt-light);
+    background-size: 400% 400%;
+}
+
+html.page-red body {
+    background: linear-gradient(270deg, $red, $red--light);
+    background-size: 400% 400%;
+}
+
+.reveal {
+    font-size: rem($font-size);
+
+    h1 {
+        font-size: rem(100);
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: -0.4px;
+    }
+
+    h2 {
+        margin-bottom: rem($font-size * 1.5);
+
+        color: $brand;
+        font-size: rem(60);
+    }
+
+    a {
+        color: $brand--alt;
+        text-decoration: none;
+
+        &:hover {
+            border-bottom: 1px solid $brand--alt-light;
+        }
+    }
+
+    strong {
+        font-weight: 700;
+    }
+
+    em {
+        font-style: italic;
+        border-bottom: 1px solid lighten($brand--alt-light, 15%);
+    }
+
+    p,
+    pre {
+        margin-top: rem($font-size);
+    }
+
+    ul {
+        display: inline-block;
+
+        margin-top: rem($font-size);
+        margin-left: rem(1);
+
+        text-align: left;
+
+        &.unstyled {
+            list-style: none;
+        }
+    }
+
+    li + li {
+        padding-top: rem($font-size / 2);
+    }
+
+    code {
+        padding: 0 rem(14);
+        font-size: rem(28);
+        font-family: monospace;
+
+        &:not([class]) {
+            color: #333;
+            background: rgba($black, 0.1);
+
+            padding: 0 rem(3);
+
+            font-size: rem($font-size);
+            line-height: 120%;
+        }
+    }
+
+    pre {
+        text-align: left !important;
+    }
+}
+
+// Utils
+.u-red {
+    color: $red !important;
+}

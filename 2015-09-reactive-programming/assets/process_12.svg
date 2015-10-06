@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.4, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="707px" height="486px" viewBox="0 0 707 486" enable-background="new 0 0 707 486" xml:space="preserve">
+<rect x="73" y="10" display="none" fill="#FCEE21" width="165" height="27"/>
+<rect x="234" y="10" fill="#FCEE21" width="189" height="27"/>
+<rect x="421" y="10" display="none" fill="#FCEE21" width="274" height="27"/>
+<text transform="matrix(1 0 0 1 12 32)" font-family="'Raleway'" font-size="24">items.filter(”not red”).map(”to square”).reduce(”to Stack”, stack)</text>
+<circle fill="#D64541" stroke="#000000" stroke-width="5" stroke-miterlimit="10" cx="39.563" cy="143.562" r="21.378"/>
+<circle fill="#65B9C6" stroke="#000000" stroke-width="5" stroke-miterlimit="10" cx="39.563" cy="194.092" r="21.378"/>
+<circle fill="#D64541" stroke="#000000" stroke-width="5" stroke-miterlimit="10" cx="39.563" cy="244.622" r="21.378"/>
+<circle fill="#3C95A2" stroke="#000000" stroke-width="5" stroke-miterlimit="10" cx="39.563" cy="93.032" r="21.378"/>
+<circle fill="#3C95A2" stroke="#000000" stroke-width="5" stroke-miterlimit="10" cx="39.563" cy="346.513" r="21.378"/>
+<circle fill="#D64541" stroke="#000000" stroke-width="5" stroke-miterlimit="10" cx="39.563" cy="397.042" r="21.378"/>
+<circle fill="#6B63A2" stroke="#000000" stroke-width="5" stroke-miterlimit="10" cx="39.563" cy="447.572" r="21.378"/>
+<circle fill="#6B63A2" stroke="#000000" stroke-width="5" stroke-miterlimit="10" cx="39.563" cy="295.982" r="21.377"/>
+<rect x="630.5" y="138.5" fill="#3C95A2" stroke="#000000" stroke-width="5" stroke-miterlimit="10" width="43" height="51"/>
+<rect x="630.5" y="188.5" fill="#65B9C6" stroke="#000000" stroke-width="5" stroke-miterlimit="10" width="43" height="51"/>
+<circle fill="#6B63A2" stroke="#000000" stroke-width="5" stroke-miterlimit="10" cx="248.426" cy="266.68" r="21.377"/>
+<g>
+	<g>
+		<line fill="none" stroke="#CCCCCC" stroke-width="5" stroke-miterlimit="10" x1="287.414" y1="266" x2="385.328" y2="266"/>
+		<g>
+			<polygon fill="#CCCCCC" points="381.328,278.465 402.914,266.001 381.328,253.535 			"/>
+		</g>
+	</g>
+</g>
+<rect x="423.5" y="245.5" fill="#6B63A2" stroke="#000000" stroke-width="5" stroke-miterlimit="10" width="43" height="43"/>
+</svg>

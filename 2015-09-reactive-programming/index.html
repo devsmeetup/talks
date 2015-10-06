@@ -1,0 +1,449 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Reactive Programming</title>
+
+		<meta name="author" content="Sebastian Sebald">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+		<link href='https://fonts.googleapis.com/css?family=Raleway:100,700,300,800' rel='stylesheet' type='text/css'>
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme.css">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="css/atelier-cave.light.css">
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+          <div class="reveal">
+             <div class="slides">
+                <section data-state="page-title">
+                    <h1>Reactive Programming</h1>
+                    <p>Sebastian Sebald &middot; <a href="https://twitter.com/sebastiansebald">@sebastiansebald</a></p>
+                </section>
+
+                <section data-state="page-title">
+                    <h1>ES2015 Tutorial</h1>
+                </section>
+                <section>
+                    <p><strong>ES5</strong></p>
+                    <pre><code class="javascript">
+function (x) { return x + 1; }
+function (x,y) { return x + y; }
+                    </code></pre>
+                    <span class="fragment">
+                    <p><strong>ES2015</strong></p>
+                        <pre><code class="javascript">
+x => x + 1
+(x,y) => x + y
+                        </code></pre>
+                    </span>
+                </section>
+                <section data-background="assets/done.gif"></section>
+
+
+                <section data-state="page-title">
+                    <h1>Lets go!</h1>
+                </section>
+                <section data-background="assets/react.svg"></section>
+                <section data-background="assets/nope.gif"></section>
+
+
+
+
+                <section data-state="page-title">
+                    <h1>User Interfaces</h1>
+                </section>
+                <section data-background="assets/excel.gif"></section>
+                <section data-background="assets/excel-logo.png"></section>
+                <section data-background="assets/nope.gif"></section>
+                <section>
+                     <h2>Why can we do this?</h2>
+                    <pre><code>
+=SUM(A1:A3)
+                    </code></pre>
+                </section>
+                <section>
+                    <h2>We are stuck with this:</h2>
+                    <pre><code class="javascript">
+let a = b + c;
+                    </code></pre>
+                    <p>Variable <code>c</code> does not change, when <code>a</code> or <code>b</code> change.</p>
+                </section>
+                <section data-background="assets/sad.gif"></section>
+
+                <section>
+                    <h2>Application Development</h2>
+                    <p>is about data flow</p>
+                </section>
+                <section>
+                    <h2>Data Flows are <em>complex</em></h2>
+                    <p>If this, then this, else this...</p>
+                </section>
+                <section>
+                    <h2>Data Flows are <em>highly interactive</em></h2>
+                    <p>Multitude of UI events related to data events</p>
+                </section>
+                <section>
+                    <h2>Most Data Flows are <em>async</em></h2>
+                    <ul>
+                        <li>Handling user input (Mouse/Keyboard)</li>
+                        <li>AJAX/JSONP</li>
+                        <li>Web Sockets</li>
+                        <li>Animations</li>
+                    </ul>
+                </section>
+
+
+                <section>
+                    <h2>Async Calls in JavaScript</h2>
+                    <pre><code class="javascipt">
+myButton.addEventListener('click', (e) => {
+  console.log('button was clicked!');
+});
+                    </code></pre>
+
+                    <ul class="unstyled">
+                        <li class="fragment">&rarr; called from 0 to n times over time</li>
+                        <li class="fragment">&rarr; emits <em>async value</em></li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>Asynchonous Values</h2>
+                    <p>can be represented as <em>collections over times</em></p>
+                </section>
+                <section>
+                    <h2>Traversing Collections</h2>
+                    <p>with iterables &rarr; <code>iterator.next()</code></p>
+                </section>
+                <section data-state="page-red">
+                    <h1>But</h1>
+                    <p>works only on discrete collections...</p>
+                </section>
+
+                <!--<section>
+                    <h2>But Methods like:</h2>
+                    <ul>
+                        <li><code>.forEach()</code></li>
+                        <li><code>.map()</code></li>
+                        <li><code>.filter()</code></li>
+                        <li><code>.reduce()</code></li>
+                    </ul>
+                    <p>do not work on asynchronous collections.</p>
+                </section>
+                <section>
+                    <h2>Arrays</h2>
+                    <p>are synchronous + discrete</p>
+                </section>-->
+
+                <section data-state="page-title">
+                    <h1>Observables</h1>
+                </section>
+                <section>
+                    <h2>Introducing Observables</h2>
+                    <ul>
+                        <li>sequence of values that a producer pushes to the consumer</li>
+                        <li>can signal to a listener that is has completed</li>
+                    </ul>
+                </section>
+                <section data-background="assets/confused.gif"></section>
+
+
+                <section>
+                    <h2>Iterator Pattern</h2>
+                    <h2>+</h2>
+                    <h2>Observer Pattern</h2>
+                </section>
+                <section>
+                    <h2>(Async) Data Streams</h2>
+                    <img src="assets/stream.svg" class="fragment">
+                    <ul class="fragment">
+                        <li>ongoing events ordered in time</li>
+                        <li>emits values / errors</li>
+                        <li>can be subscibed to</li>
+                        <li>can complete</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>Set Operations!</h2>
+                    <ul>
+                        <li>Filter</li>
+                        <li>Map</li>
+                        <li>Reduce</li>
+                        <li>Concat</li>
+                        <li>Merge</li>
+                        <li>FlatMap</li>
+                        <li>...</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>Async Set Operations!</h2>
+                    <ul>
+                        <li>Buffer</li>
+                        <li>Window</li>
+                        <li>Throttle</li>
+                        <li>CombineLast</li>
+                        <li>FlatMapLatest</li>
+                        <li>...</li>
+                    </ul>
+                </section>
+
+
+
+
+                <section data-state="page-title">
+                    <h2>Example:</h2>
+                    <h1>Double Click</h1>
+                </section>
+                <section><img src="assets/rxjs.png"></section>
+                <section>
+                    <h2>Vanilla</h2>
+                    <pre><code class="javascript">
+function doubleClickListener ( el, cb ) {
+    let click_count = 0,
+        click_timer;
+
+    el.addEventListener('click', e => {
+        click_count++;
+
+        if( click_count === 1 ) {
+            click_timer = setTimeout(() => {
+                click_count = 0;
+            }, 500);
+        }
+        else if ( click_count === 2 ) {
+            clearTimeout(click_timer);
+            click_count = 0;
+            cb(e);
+        }
+    });
+}
+
+doubleClickListener(
+    document.querySelector('#button'),
+    () => console.log('double clicked!')
+);
+                    </code></pre>
+                </section>
+                <section>
+                    <h2>With Streams</h2>
+                    <pre><code class="javascript">
+let click_stream = Rx.Observable.fromEvent(
+    document.querySelector('#button'),
+    'click'
+);
+
+click_stream
+    .buffer( () => click_stream.throttle(500) )
+    .map( list => list.length )
+    .filter( x => x === 2 )
+    .subscribe(() => console.log('double clicked!'));
+                    </code></pre>
+                </section>
+                <section>
+                    <img style="height:auto;max-width:1000px;" src="assets/db_click_stream_all.svg">
+                </section>
+
+
+
+                <section data-state="page-title">
+                    <h2>Example:</h2>
+                    <h1>Autocomplete</h1>
+                </section>
+                <section>
+                    <pre><code class="javascript">
+Rx.Observable.fromEvent(document.querySelector('#search'), 'keyup')
+    .map( e => e.target.value )
+    .filter( text => text.length > 2 )
+    .debounce( 300 )
+    .distinctUntilChanged();
+    .flatMapLatest( invokeSearch /* e.g. Ajax */ );
+                    </code></pre>
+                </section>
+                <section>
+                    <p><strong><a href="demo/autocomplete.html" target="_blank">Demo</a></strong></p>
+                </section>
+
+                <section data-background="assets/why.gif"></section>
+                <section>
+                    <h2>Why not just use Promises!?</h2>
+                    <ul class="fragment">
+                        <li>Did you ever try to cancel a promises?</li>
+                        <li>Order (in time) is important!</li>
+                    </ul>
+                </section>
+                <section data-background="assets/frustrated.gif"></section>
+                <section>
+                    <h2>What about Array Methods?</h2>
+                    <ul class="fragment">
+                        <li>Iterates over the entire array at each step</li>
+                        <li>Creates new arrays each step</li>
+                        <li>Intermediary arrays need to be GCed</li>
+                    </ul>
+                </section>
+                <section><img src="assets/transform_0.svg" /></section>
+                <section><img src="assets/transform_1.svg" /></section>
+                <section><img src="assets/transform_2.svg" /></section>
+                <section><img src="assets/transform_3.svg" /></section>
+                <section><img src="assets/transform_4.svg" /></section>
+                <section><img src="assets/transform_5.svg" /></section>
+                <section><img src="assets/transform_6.svg" /></section>
+                <section><img src="assets/transform_7.svg" /></section>
+                <section><img src="assets/transform_8.svg" /></section>
+                <section><img src="assets/transform_9.svg" /></section>
+                <section><img src="assets/transform_10.svg" /></section>
+                <section><img src="assets/transform_11.svg" /></section>
+                <section><img src="assets/transform_12.svg" /></section>
+                <section><img src="assets/transform_13.svg" /></section>
+                <section><img src="assets/transform_14.svg" /></section>
+                <section><img src="assets/transform_15.svg" /></section>
+                <section><img src="assets/transform_16.svg" /></section>
+                <section><img src="assets/transform_17.svg" /></section>
+                <section><img src="assets/transform_18.svg" /></section>
+                <section>
+                    <h2>With Observables</h2>
+                    <ul class="fragment">
+                        <li>iterates once over data</li>
+                        <li>no intermediary arrays crated</li>
+                        <li>Less GC</li>
+                    </ul>
+                </section>
+                <section><img src="assets/process_0.svg" /></section>
+                <section><img src="assets/process_1.svg" /></section>
+                <section><img src="assets/process_2.svg" /></section>
+                <!--<section><img src="assets/process_3.svg" /></section>-->
+                <!--<section><img src="assets/process_4.svg" /></section>-->
+                <section><img src="assets/process_5.svg" /></section>
+                <section><img src="assets/process_6.svg" /></section>
+                <section><img src="assets/process_7.svg" /></section>
+                <section><img src="assets/process_8.svg" /></section>
+                <section><img src="assets/process_9.svg" /></section>
+                <section><img src="assets/process_10.svg" /></section>
+                <section><img src="assets/process_11.svg" /></section>
+                <section><img src="assets/process_12.svg" /></section>
+                <section><img src="assets/process_13.svg" /></section>
+                <section><img src="assets/process_14.svg" /></section>
+                <section><img src="assets/process_15.svg" /></section>
+                <section><img src="assets/process_16.svg" /></section>
+                <section><img src="assets/process_17.svg" /></section>
+                <section><img src="assets/process_18.svg" /></section>
+                <section><img src="assets/process_19.svg" /></section>
+                <section><img src="assets/process_20.svg" /></section>
+                <section><img src="assets/process_21.svg" /></section>
+                <section><img src="assets/process_22.svg" /></section>
+                <!--<section data-background="assets/look.gif"></section>-->
+                <section>
+                    <h2>Use with Web Sockets?</h2>
+                    <ul class="fragment">
+                        <li>Makes reconnecting super "easy"</li>
+                        <li>Observables can retried and repeated</li>
+                    </ul>
+                </section>
+                <section data-background="assets/warn.gif">
+                    <h1 style="color:#fff;">But ...</h!>
+                </section>
+                <section>
+                    <!--<h2>Small Caveat</h2>-->
+                    <ul>
+                        <li>Rx and Observables have a very verly large API</li>
+                        <li>Thinking in streams is hard (at first)</li>
+                        <li>Memory leaks, do not forget to `.dispose()`</li>
+                    </ul>
+                </section>
+
+
+
+
+                <section data-state="page-title">
+                    <h1>Recap</h1>
+                </section>
+                <section>
+                    <h2>RxJs (and Observables)</h2>
+                    <p>Combination of the best ideas from</p>
+                    <ul>
+                        <li>the observer pattern</li>
+                        <li>the iterator pattern</li>
+                        <li>functional programming</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>Observables</h2>
+                    <ul>
+                        <li>Any number of values, any amount of time</li>
+                        <li>Are lazy, don't do anything until you subscribe</li>
+                        <li>Can retry / repeat</li>
+                        <li>Were designed from the beginning to be cancellable</li>
+                        <li>Created from Event/Promise/...</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>The Future of Observables</h2>
+                    <ul>
+                        <li>TC39 proposal to add them to ES2016</li>
+                        <li>Angular 2 & React will use them and support them in a first class way</li>
+                    </ul>
+                </section>
+
+
+
+                <section>
+                    <h2>Who to follow</h2>
+                    <ul>
+                        <li>@jhusain - Jafar Husain (T39)</li>
+                        <li>@mattpodwysocki - Matt Podwysocki (RxJS)</li>
+                        <li>@benlesh - Ben Lesh (Netflix)</li>
+                    </ul>
+                </section>
+                <section data-background="assets/thanks.gif"></section>
+                <section>
+                    <h2>Ressources:</h2>
+                    <ul>
+                        <li>http://reactivex.io</li>
+                        <li>https://gist.github.com/staltz/868e7e9bc2a7b8c1f754</li>
+                        <li>http://www.slideshare.net/benlesh1/rx-js-and-reactive-programming-may-2015</li>
+                        <li>http://www.slideshare.net/InfoQ/asynchronous-programming-at-netflix</li>
+                    </ul>
+                </section>
+			</div>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				history: true,
+				center: true,
+
+				transition: 'none', // none/fade/slide/convex/concave/zoom
+                backgroundTransition: 'none',
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
